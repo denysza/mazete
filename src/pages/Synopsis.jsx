@@ -19,13 +19,13 @@ function Synopsis() {
                     <div className="ls-top-wrap">
                         <div className="ls-top-body">
                             <div className="ls-top-item">
-                                <img src="./assets/image/character01.png" alt=""/>
+                                <img src="/assets/image/character01.png" alt=""/>
                             </div>
                             <div className="ls-top-item">
-                                <img src="./assets/image/character02.png" alt=""/>
+                                <img src="/assets/image/character02.png" alt=""/>
                             </div>
                             <div className="ls-top-item">
-                                <img src="./assets/image/character03.png" alt=""/>
+                                <img src="/assets/image/character03.png" alt=""/>
                             </div>
                         </div>
                     </div>
@@ -37,7 +37,7 @@ function Synopsis() {
                     <div className="ls-main-loading-text">
                         {loading &&
                             <div className="ls-main-loading-part">
-                                <img src="./assets/image/white-loading.gif" alt=""/>
+                                <img src="/assets/image/white-loading.gif" alt=""/>
                                 <span>下書き準備中</span>
                             </div>
                         }
@@ -46,7 +46,7 @@ function Synopsis() {
                         }
                     </div>
                     {!editable && <div className="ls-main-edit-btn">
-                        <a onClick={()=>{setEditable(true)}}><span>編集</span><img src="./assets/image/edit-icon.png" alt=""/></a>
+                        <a onClick={()=>{setEditable(true)}}><span>編集</span><img src="/assets/image/edit-icon.png" alt=""/></a>
                     </div>}
                     {!editable && <button onClick={()=>{console.log("asd")}}  className={loading ? "ls-main-making-btn" : "ls-main-making-btn active"} disabled={loading}>この世界線に入る</button>}
                 </div>

@@ -9,10 +9,10 @@ function Top() {
                     <h1>マぜて</h1>
                 </div>
                 <div className="top-banner">
-                    <img src="./assets/image/top-banner-img01.png" alt="" className="top-banner01"/>
-                    <img src="./assets/image/top-banner-img02.png" alt="" className="top-banner02"/>
-                    <img src="./assets/image/top-banner-img03.png" alt="" className="top-banner03"/>
-                    <img src="./assets/image/top-banner-img04.png" alt="" className="top-banner04"/>
+                    <img src="/assets/image/top-banner-img01.png" alt="" className="top-banner01"/>
+                    <img src="/assets/image/top-banner-img02.png" alt="" className="top-banner02"/>
+                    <img src="/assets/image/top-banner-img03.png" alt="" className="top-banner03"/>
+                    <img src="/assets/image/top-banner-img04.png" alt="" className="top-banner04"/>
                     <div className="top-banner-text">
                         ※サービス内容伝わるイラスト外注
                     </div>
@@ -24,10 +24,10 @@ function Top() {
                         みんなの妄想
                     </div>
                     <div className="top-delusion-body">
-                        <img src="./assets/image/top-delusion-img01.png" alt="" className="top-delusion-img"/>
-                        <img src="./assets/image/top-delusion-img02.png" alt="" className="top-delusion-img"/>
-                        <img src="./assets/image/top-delusion-img03.png" alt="" className="top-delusion-img"/>
-                        <img src="./assets/image/top-delusion-img04.png" alt="" className="top-delusion-img"/>
+                        <img src="/assets/image/top-delusion-img01.png" alt="" className="top-delusion-img"/>
+                        <img src="/assets/image/top-delusion-img02.png" alt="" className="top-delusion-img"/>
+                        <img src="/assets/image/top-delusion-img03.png" alt="" className="top-delusion-img"/>
+                        <img src="/assets/image/top-delusion-img04.png" alt="" className="top-delusion-img"/>
                     </div>
                 </div>
             </div>
