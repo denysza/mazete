@@ -48,7 +48,7 @@ function Synopsis() {
                     {!editable && <div className="ls-main-edit-btn">
                         <a onClick={()=>{setEditable(true)}}><span>編集</span><img src="/assets/image/edit-icon.png" alt=""/></a>
                     </div>}
-                    {!editable && <button onClick={()=>{console.log("asd")}}  className={loading ? "ls-main-making-btn" : "ls-main-making-btn active"} disabled={loading}>この世界線に入る</button>}
+                    {!editable && <button onClick={()=>{window.location.assign("/talk")}}  className={loading ? "ls-main-making-btn" : "ls-main-making-btn active"} disabled={loading}>この世界線に入る</button>}
                 </div>
             </div>
         </div>
