@@ -248,6 +248,7 @@ body {
     align-items: center;
     font-size: 21px;
     color: #8f8f8f;
+    cursor: pointer;
 }
 
 .preview-title-part.active {

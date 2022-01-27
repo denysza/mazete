@@ -11,7 +11,7 @@ function Layout() {
                 <Route path="/" element={<Top/>} />
                 <Route path="/select" element={<Select/>} />
                 <Route path="/synopsis" element={<Synopsis/>} />
-                <Route path="/talk" element={<Talk/>} />
+                <Route path="/talk/:id" element={<Talk />} />
             </Routes>
         </Router>
     )

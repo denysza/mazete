@@ -1,6 +1,32 @@
-
+import { useState, useEffect} from 'react';
+import axios from 'axios';
+import { v4 as uuidv4 } from 'uuid'
+const baseurl = import.meta.env.REACT_APP_API_BASE_URL;
 
 function Top() {
+
+    useEffect(() => {
+        let register_id =  uuidv4();
+      
+        var data = JSON.stringify({
+            "register_id":register_id
+        });
+        var config = {
+            method: 'post',
+            url: `${baseurl}/register_id`,
+            headers: { 
+                'Content-Type': 'application/json'
+            },
+                data : data,
+        };
+        axios(config)
+        .then((response) => {
+            localStorage.setItem("register_id", register_id)
+        })
+        .catch((error)=>{
+           console.log(error)
+        })
+    });
 
     return(
         <div className="container">

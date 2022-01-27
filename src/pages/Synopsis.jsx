@@ -1,5 +1,6 @@
 import { useState, useEffect} from 'react'
-
+import axios from 'axios';
+const baseurl = import.meta.env.REACT_APP_API_BASE_URL;
 
 function Synopsis() {
     const [editable, setEditable] = useState(false);
@@ -7,11 +8,61 @@ function Synopsis() {
     const [data, setData] = useState("ビルの屋上にあつめられたゴン達。\n\n利根川から鉄骨の上を渡って、向こうのビルへ行けたものに賞金がもらえると説明を受ける。\n\nゴン達はいかにしてこの危機を乗り越えるのか？")
     
     useEffect(() => {
-        const timeout = setTimeout(() => {
-            setLoading(false)
-        }, 1000)
-        return () => clearTimeout(timeout)
-      }, [loading])
+        let register_id =  localStorage.register_id || null;
+        let outline_id = localStorage.outline_id || null;
+        let data = JSON.stringify({
+            "user_id":register_id,
+            "outline_id":outline_id
+        });
+        let config = {
+            method: 'post',
+            url: `${baseurl}/get_outline`,
+            headers: { 
+                'Content-Type': 'application/json'
+            },
+                data : data,
+        };
+        axios(config)
+        .then((response) => {
+            console.log(response.data)
+            if(response.data.generated && response.data.outline && !response.data.error){
+                setLoading(false);
+                setData(response.data.outline);
+            }
+            else{
+                window.location.assign('/select')
+            }
+        })
+        .catch((error)=>{
+            console.log(error)
+        })
+    }, [])
+
+    const handleTalk = () => {
+        let register_id =  localStorage.register_id || null;
+        let outline_id = localStorage.outline_id || null;
+        let postdata = JSON.stringify({
+            "user_id":register_id,
+            "outline_id":outline_id,
+            "outline":data
+        });
+        let config = {
+            method: 'post',
+            url: `${baseurl}/generate_story`,
+            headers: { 
+                'Content-Type': 'application/json'
+            },
+                data : postdata,
+        };
+        axios(config)
+        .then((response) => {
+            window.location.assign(`/talk/${response.data.story_id}`)
+        })
+        .catch((error)=>{
+            console.log(error)
+        })
+    }
+
     return(
         <div className="container" id="loading_synposis">
             <div className="container-wrap">
@@ -48,7 +99,7 @@ function Synopsis() {
                     {!editable && <div className="ls-main-edit-btn">
                         <a onClick={()=>{setEditable(true)}}><span>編集</span><img src="/assets/image/edit-icon.png" alt=""/></a>
                     </div>}
-                    {!editable && <button onClick={()=>{window.location.assign("/talk")}}  className={loading ? "ls-main-making-btn" : "ls-main-making-btn active"} disabled={loading}>この世界線に入る</button>}
+                    {!editable && <button onClick={handleTalk}  className={loading ? "ls-main-making-btn" : "ls-main-making-btn active"} disabled={loading}>この世界線に入る</button>}
                 </div>
             </div>
         </div>
