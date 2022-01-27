@@ -708,14 +708,11 @@ body {
     right: 0;
     bottom: 20px;
     width: 100%;
-    display: none;
+    display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.text-select-btn-group.active {
-    display: flex;
-}
 
 .next-btn {
     font-size: 22px;
@@ -726,7 +723,6 @@ body {
     letter-spacing: normal;
     text-align: right;
     color: #fff;
-    display: none;
     margin: 0 20px 0 auto;
 }
 
