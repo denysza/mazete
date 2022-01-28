@@ -843,3 +843,37 @@ body {
     }
 }
 
+
+.full-height {
+    height: 100vh;
+}
+
+.full-width{
+    width: 100vw;
+}
+
+.flex-center {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
+.position-ref {
+    position: relative;
+}
+
+.code {
+    border-right: 2px solid;
+    font-size: 26px;
+    padding: 0 15px 0 15px;
+    text-align: center;
+}
+
+.message {
+    font-size: 18px;
+    text-align: center;
+}
+
+.bg-white{
+    background-color: white;
+}

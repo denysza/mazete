@@ -1,10 +1,11 @@
 import { useState, useEffect} from 'react';
+import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 import { v4 as uuidv4 } from 'uuid'
 const baseurl = import.meta.env.REACT_APP_API_BASE_URL;
 
 function Top() {
-
+    const navigate = useNavigate();
     useEffect(() => {
         let register_id =  uuidv4();
       
@@ -24,7 +25,12 @@ function Top() {
             localStorage.setItem("register_id", register_id)
         })
         .catch((error)=>{
-           console.log(error)
+            navigate("/error",
+                {
+                    state: {
+                        message: "ストーリーの生成に失敗しました。<br/>時間をおいてお試しください"
+                }
+            });
         })
     });
 

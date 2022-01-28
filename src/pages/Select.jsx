@@ -34,7 +34,12 @@ function Top() {
                 setCharacterList(response.data.chara_list)
             })
             .catch((error)=>{
-                console.log(error)
+                navigate("/error",
+                    {
+                        state: {
+                            message: "ストーリーの生成に失敗しました。<br/>時間をおいてお試しください"
+                    }
+                });
             })
             let worlddata = JSON.stringify({
                 "user_id":register_id,
@@ -56,7 +61,12 @@ function Top() {
                 setWorldList(response.data.world_list)
             })
             .catch((error)=>{
-                console.log(error)
+                navigate("/error",
+                {
+                    state: {
+                        message: "ストーリーの生成に失敗しました。<br/>時間をおいてお試しください"
+                }
+            });
             })
 
 
@@ -107,7 +117,12 @@ function Top() {
             window.location.assign('/synopsis')
         })
         .catch((error)=>{
-            console.log(error)
+            navigate("/error",
+                {
+                    state: {
+                        message: "ストーリーの生成に失敗しました。<br/>時間をおいてお試しください"
+                }
+            });
         })
     }
 

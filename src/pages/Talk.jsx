@@ -45,11 +45,21 @@ function Talk() {
                 setData(response.data);
             }
             else{
-                window.location.assign('/select')
+                navigate("/error",
+                    {
+                        state: {
+                            message: "ストーリーの生成に失敗しました。<br/>時間をおいてお試しください"
+                    }
+                });
             }
         })
         .catch((error)=>{
-            console.log(error)
+            navigate("/error",
+                {
+                    state: {
+                        message: "ストーリーの生成に失敗しました。<br/>時間をおいてお試しください"
+                }
+            });
         })
     }, [])
 
@@ -102,7 +112,6 @@ function Talk() {
                 setIndex(renderIndex + 1)
             }
         }
-     
     }
 
     return(

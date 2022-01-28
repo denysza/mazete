@@ -24,17 +24,26 @@ function Synopsis() {
         };
         axios(config)
         .then((response) => {
-            console.log(response.data)
             if(response.data.generated && response.data.outline && !response.data.error){
                 setLoading(false);
                 setData(response.data.outline);
             }
             else{
-                window.location.assign('/select')
+                navigate("/error",
+                {
+                    state: {
+                        message: "ストーリーの生成に失敗しました。<br/>時間をおいてお試しください"
+                }
+            });
             }
         })
         .catch((error)=>{
-            console.log(error)
+            navigate("/error",
+            {
+                state: {
+                    message: "ストーリーの生成に失敗しました。<br/>時間をおいてお試しください"
+            }
+        });
         })
     }, [])
 
@@ -59,7 +68,12 @@ function Synopsis() {
             window.location.assign(`/talk/${response.data.story_id}`)
         })
         .catch((error)=>{
-            console.log(error)
+            navigate("/error",
+                {
+                    state: {
+                        message: "ストーリーの生成に失敗しました。<br/>時間をおいてお試しください"
+                }
+            });
         })
     }
 
