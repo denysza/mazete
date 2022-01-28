@@ -667,15 +667,16 @@ body {
 .as-thumb-character.mb {
     position: absolute;
     bottom: 15px;
-    left: 20px;
     width: 190px;
     height: auto;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 .as-thumb-character.rb {
     position: absolute;
     bottom: 15px;
-    left: 20px;
+    right: 20px;
     width: 183px;
     height: auto;
 }

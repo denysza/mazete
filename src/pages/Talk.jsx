@@ -107,6 +107,7 @@ function Talk() {
     }
     
     const handleNext = ()=>{
+        console.log(data.story)
         if(!rendering){
             if(data.story.length - 1 > renderIndex){
                 setIndex(renderIndex + 1)
