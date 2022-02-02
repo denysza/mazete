@@ -18,6 +18,7 @@ textarea{
 .ls-main-loading-wrap:disabled{
     background: bottom;
     border: none;
+    color: black;
     -webkit-appearance: none;
 }
 
@@ -72,6 +73,16 @@ body {
     max-width: 414px;
     width: 100%;
     margin: auto;
+    position: relative;
+}
+
+.back-to-btn {
+    position: absolute;
+    top: 20px;
+    left: 10px;
+    background-color: transparent;
+    outline: none;
+    border: none;
 }
 
 .container-wrap {
@@ -206,9 +217,14 @@ body {
     display: none;
 }
 
-.top-delusion-img {
+.top-delusion-part {
     width: 47%;
     margin-bottom: 20px;
+}
+
+.top-delusion-img {
+    width: 100%;
+    height: auto;
 }
 
 .preview {
@@ -368,7 +384,7 @@ body {
 }
 
 .character-add-btn {
-    width: 75px;
+    padding: 5px 10px;
     height: 45px;
     background-color: #8f8f8f;
     border: 2px solid #8f8f8f;
@@ -378,11 +394,17 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    white-space: nowrap;
 }
 
-.character-add-btn:hover {
+.character-add-btn.active:hover {
     background-color: transparent;
-    color: black;
+    color: #21335b;
+}
+
+.character-add-btn.active{
+    background-color: #21335b;
+    border: 2px solid #21335b;
 }
 
 .location-item {
@@ -453,7 +475,6 @@ body {
     width: 285px;
     height: 100%;
     padding: 0 10px;
-    background-image: url("../image/location01.png");
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
@@ -569,7 +590,8 @@ body {
 }
 
 .ls-main-making-btn {
-    width: 160px;
+    min-width: 160px;
+    padding: 5px 10px;
     height: 43px;
     border-radius: 48px;
     background-color: #8f8f8f;
@@ -589,6 +611,7 @@ body {
     left: 50%;
     bottom: 25px;
     transform: translateX(-50%);
+    white-space: nowrap;
 }
 
 .ls-main-making-btn.active:hover {

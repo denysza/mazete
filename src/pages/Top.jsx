@@ -56,10 +56,18 @@ function Top() {
                         みんなの妄想
                     </div>
                     <div className="top-delusion-body">
-                        <img src="/assets/image/top-delusion-img01.png" alt="" className="top-delusion-img"/>
-                        <img src="/assets/image/top-delusion-img02.png" alt="" className="top-delusion-img"/>
-                        <img src="/assets/image/top-delusion-img03.png" alt="" className="top-delusion-img"/>
-                        <img src="/assets/image/top-delusion-img04.png" alt="" className="top-delusion-img"/>
+                        <div className="top-delusion-part">
+                            <img src="/assets/image/top-delusion-img01.png" alt="" className="top-delusion-img"/>
+                        </div>
+                        <div className="top-delusion-part">
+                            <img src="/assets/image/top-delusion-img02.png" alt="" className="top-delusion-img"/>
+                        </div>
+                        <div className="top-delusion-part">
+                            <img src="/assets/image/top-delusion-img03.png" alt="" className="top-delusion-img"/>
+                        </div>
+                        <div className="top-delusion-part">
+                            <img src="/assets/image/top-delusion-img04.png" alt="" className="top-delusion-img"/>
+                        </div>
                     </div>
                 </div>
             </div>

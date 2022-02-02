@@ -3,13 +3,13 @@ import { useParams } from "react-router-dom";
 import axios from 'axios';
 import { render } from 'react-dom';
 const baseurl = import.meta.env.REACT_APP_API_BASE_URL;
-
+import { useNavigate } from "react-router-dom";
 function sleep(ms) {
     return new Promise(resolve => (setTimeout(resolve, ms)));
 }
 
 function Talk() {
-    
+    const navigate = useNavigate();
     const [loading, setLoading] = useState(true);
     const [data, setData] = useState(null);
     const [renderIndex, setIndex] = useState(0);
@@ -125,6 +125,7 @@ function Talk() {
                             <span>準備中</span>
                         </div>
                     </div>
+                    <button className="back-to-btn" onClick={()=>{navigate("/synopsis",{state: {}});}}><img src="/assets/image/back-to-img.svg" alt="" /></button>
                 </div>
             }
             {
@@ -151,6 +152,7 @@ function Talk() {
                             <a href="" className="final-btn">この物語をシェアする</a>
                         </div>}
                     </div>
+                    <button className="back-to-btn" onClick={()=>{navigate("/synopsis",{state: {}});}}><img src="/assets/image/back-to-img.svg" alt="" /></button>
                 </div>
             }
         </>

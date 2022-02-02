@@ -1,15 +1,22 @@
-import { useState, useEffect} from 'react'
+import { useState, useEffect, useRef} from 'react'
 import axios from 'axios';
 const baseurl = import.meta.env.REACT_APP_API_BASE_URL;
 
+
 function Synopsis() {
+    const focusText = useRef();
     const [editable, setEditable] = useState(false);
     const [loading, setLoading] = useState(true)
     const [data, setData] = useState("ビルの屋上にあつめられたゴン達。\n\n利根川から鉄骨の上を渡って、向こうのビルへ行けたものに賞金がもらえると説明を受ける。\n\nゴン達はいかにしてこの危機を乗り越えるのか？")
-    
+    const [userdata,setUserData] = useState([]);
+    const [background, setBackground] = useState(null);
     useEffect(() => {
         let register_id =  localStorage.register_id || null;
         let outline_id = localStorage.outline_id || null;
+        let background = localStorage.background || null;
+        let user_list = localStorage.user_list || null;
+        setBackground(background);
+        setUserData(JSON.parse(user_list));
         let data = JSON.stringify({
             "user_id":register_id,
             "outline_id":outline_id
@@ -77,21 +84,21 @@ function Synopsis() {
         })
     }
 
+
+    useEffect(() => {
+        if(focusText.current && editable) focusText.current.focus(); 
+    }, [editable]);
     return(
         <div className="container" id="loading_synposis">
             <div className="container-wrap">
                 <div className="ls-top editing">
-                    <div className="ls-top-wrap">
+                    <div className="ls-top-wrap" style={{backgroundImage:`url(${background}`}}>
                         <div className="ls-top-body">
-                            <div className="ls-top-item">
-                                <img src="/assets/image/character01.png" alt=""/>
-                            </div>
-                            <div className="ls-top-item">
-                                <img src="/assets/image/character02.png" alt=""/>
-                            </div>
-                            <div className="ls-top-item">
-                                <img src="/assets/image/character03.png" alt=""/>
-                            </div>
+                            {userdata.map((item,index)=>(
+                                <div key={index} className="ls-top-item">
+                                    <img src={item} alt=""/>
+                                </div>
+                            ))}
                         </div>
                     </div>
                 </div>
@@ -107,7 +114,7 @@ function Synopsis() {
                             </div>
                         }
                         {!loading &&
-                            <textarea autoFocus className="ls-main-loading-wrap" value={data} disabled={!editable} onChange={(event)=>{setData(event.target.value)}} onBlur={()=>{setEditable(false)}}/>
+                            <textarea  ref={focusText} className="ls-main-loading-wrap" value={data} disabled={!editable} onChange={(event)=>{setData(event.target.value)}} onBlur={()=>{setEditable(false)}}/>
                         }
                     </div>
                     {!editable && <div className="ls-main-edit-btn">

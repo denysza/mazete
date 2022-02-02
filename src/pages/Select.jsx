@@ -7,6 +7,7 @@ function Top() {
     const [tab, setTab] = useState(1);
     const [selectedAvatars, setSelectedAvatas] = useState([]);
     const [selectedArea, setSelectedArea] = useState(null);
+    const [active, setActive] = useState(false);
     const [characterList, setCharacterList] = useState([]);
     const [worldList, setWorldList] = useState([]);
 
@@ -72,6 +73,13 @@ function Top() {
 
     },[]);
 
+    useEffect(()=>{
+        if(selectedArea && selectedAvatars.length>0)
+        {
+            setActive(true);
+        }
+    },[selectedAvatars,selectedArea])
+
 
 
     const handleClickAvatar= (index)=>{
@@ -114,6 +122,8 @@ function Top() {
         axios(config)
         .then((response) => {
             localStorage.setItem("outline_id", response.data.outline_id);
+            localStorage.setItem("background",  worldList.filter((item)=>(item.world_id==selectedArea))[0].img_url);
+            localStorage.setItem("user_list",JSON.stringify(selectedAvatars.map((avatar_id)=>(characterList.filter(item=>(item.chara_id==avatar_id))[0].img_url))));
             window.location.assign('/synopsis')
         })
         .catch((error)=>{
@@ -184,7 +194,7 @@ function Top() {
                                 
                             </div>
                         }
-                        <button onClick={handleOutline} className="character-add-btn">マぜる</button>
+                        <button onClick={handleOutline} className={`character-add-btn ${active ? "active" : ""}`} disabled={!active}>マぜる</button>
                     </div>
                 </div>
             </div>
