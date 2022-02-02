@@ -484,7 +484,7 @@ body {
     width: 100%;
     height: 100%;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: flex-end;
 }
 
@@ -494,6 +494,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: flex-end;
+    margin: 0 5px;
 }
 
 .ls-top-item img {
