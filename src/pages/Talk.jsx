@@ -125,6 +125,7 @@ function Talk() {
                             <span>準備中</span>
                         </div>
                     </div>
+                    <button className="back-to-btn"><img src="/assets/image/back-to-img.svg" alt="" /></button>
                 </div>
             }
             {
@@ -151,6 +152,7 @@ function Talk() {
                             <a href="" className="final-btn">この物語をシェアする</a>
                         </div>}
                     </div>
+                    <button className="back-to-btn"><img src="/assets/image/back-to-img.svg" alt="" /></button>
                 </div>
             }
         </>
