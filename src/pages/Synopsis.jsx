@@ -15,6 +15,10 @@ function Synopsis() {
         let outline_id = localStorage.outline_id || null;
         let background = localStorage.background || null;
         let user_list = localStorage.user_list || null;
+        if(!user_list || !background){
+            navigate("/select",{state: {}})
+        }
+
         setBackground(background);
         setUserData(JSON.parse(user_list));
         let data = JSON.stringify({
@@ -118,7 +122,7 @@ function Synopsis() {
                         }
                     </div>
                     {!editable && <div className="ls-main-edit-btn">
-                        <a onClick={()=>{setEditable(true)}}><span>編集</span><img src="/assets/image/edit-icon.png" alt=""/></a>
+                        <a onClick={()=>{focusText.current.focus();setEditable(true)}}><span>編集</span><img src="/assets/image/edit-icon.png" alt=""/></a>
                     </div>}
                     {!editable && <button onClick={handleTalk}  className={loading ? "ls-main-making-btn" : "ls-main-making-btn active"} disabled={loading}>この世界線に入る</button>}
                 </div>
