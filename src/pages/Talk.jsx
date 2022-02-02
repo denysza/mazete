@@ -1,9 +1,9 @@
 import { useState, useEffect} from 'react';
 import { useParams } from "react-router-dom";
 import axios from 'axios';
-import { render } from 'react-dom';
-const baseurl = import.meta.env.REACT_APP_API_BASE_URL;
 import { useNavigate } from "react-router-dom";
+const baseurl = import.meta.env.REACT_APP_API_BASE_URL;
+
 function sleep(ms) {
     return new Promise(resolve => (setTimeout(resolve, ms)));
 }

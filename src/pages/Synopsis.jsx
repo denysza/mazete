@@ -1,9 +1,11 @@
 import { useState, useEffect, useRef} from 'react'
 import axios from 'axios';
+import { useNavigate } from "react-router-dom";
 const baseurl = import.meta.env.REACT_APP_API_BASE_URL;
 
 
 function Synopsis() {
+    const navigate = useNavigate();
     const focusText = useRef();
     const [editable, setEditable] = useState(false);
     const [loading, setLoading] = useState(true)
@@ -15,6 +17,7 @@ function Synopsis() {
         let outline_id = localStorage.outline_id || null;
         let background = localStorage.background || null;
         let user_list = localStorage.user_list || null;
+        console.log(user_list,background)
         if(!user_list || !background){
             navigate("/select",{state: {}})
         }
