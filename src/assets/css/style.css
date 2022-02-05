@@ -289,8 +289,6 @@ body {
 
 .point-search input {
     width: 100%;
-    height: 32px;
-    border: solid 1px #707070;
 }
 
 .search-btn {
@@ -907,4 +905,8 @@ body {
 
 .bg-white{
     background-color: white;
+}
+
+.css-viou3o-MuiAutocomplete-root .MuiOutlinedInput-root{
+        padding: 0 !important;
 }

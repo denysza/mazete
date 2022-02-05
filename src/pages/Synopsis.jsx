@@ -98,7 +98,7 @@ function Synopsis() {
     return(
         <div className="container" id="loading_synposis">
             <div className="container-wrap">
-                <div className="ls-top editing">
+                <div className={`ls-top ${editable?"editing" : ""}`} >
                     <div className="ls-top-wrap" style={{backgroundImage:`url(${background}`}}>
                         <div className="ls-top-body">
                             {userdata.map((item,index)=>(
