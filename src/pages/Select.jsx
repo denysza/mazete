@@ -4,7 +4,9 @@ import { useNavigate } from "react-router-dom";
 import TextField from "@mui/material/TextField";
 import Autocomplete, { createFilterOptions } from "@mui/material/Autocomplete";
 const baseurl = import.meta.env.REACT_APP_API_BASE_URL;
-const filter = createFilterOptions();
+const filter = createFilterOptions({
+    stringify: (option) => option.kana + option.label
+  });
 function Top() {
     const navigate = useNavigate();
     const [tab, setTab] = useState(1);
@@ -87,7 +89,7 @@ function Top() {
             };
             axios(autocomplete_chara_config)
             .then((response) => {
-                setCharAutoList(response.data.auto_complete);                
+                setCharAutoList(response.data.auto_complete);
                 setAutoList(response.data.auto_complete)
             })
             .catch((error)=>{
@@ -188,7 +190,7 @@ function Top() {
         <div className="container" id="character_select">
             <div className="container-wrap">
                 <div className="preview">
-                    <div className="preview-part" onClick={()=>{setTab(1);setAutoList(charaAutoList)}}>
+                    <div className="preview-part" onClick={()=>{setTab(1);setAutoList(charaAutoList); setValue(null)}}>
                         <div className="preview-img-part">
                             {selectedAvatars.map((avatar_id)=>(<img key={avatar_id} src={characterList.filter(item=>(item.chara_id==avatar_id))[0].img_url} alt=""/>))}
                             {selectedAvatars.length==0 && <img src='/assets/image/default-avatar.png'/>}
@@ -197,7 +199,7 @@ function Top() {
                             キャラ
                         </div>
                     </div>
-                    <div className="preview-part" onClick={()=>{setTab(2); setAutoList(worldAutoList)}}>
+                    <div className="preview-part" onClick={()=>{setTab(2); setAutoList(worldAutoList); setValue(null)}}>
                         <div className="preview-img-part">
                             <img src={selectedArea!=null ? worldList.filter((item)=>(item.world_id==selectedArea))[0].img_url: "/assets/image/point-bg.png"} alt=""/>
                         </div>
@@ -213,11 +215,11 @@ function Top() {
                         onChange={(event, newValue) => {
                             if (typeof newValue === "string") {
                             setValue({
-                                kana: newValue
+                                label: newValue
                             });
                             } else if (newValue && newValue.inputValue) {
                             setValue({
-                                kana: newValue.inputValue
+                                label: newValue.inputValue
                             });
                             } else {
                                 setValue(newValue);
@@ -225,16 +227,6 @@ function Top() {
                         }}
                         filterOptions={(options, params) => {
                             const filtered = filter(options, params);
-                            const { inputValue } = params;
-                            const isExisting = options.some(
-                            (option) => inputValue === option.title
-                            );
-                            if (inputValue !== "" && !isExisting) {
-                            filtered.push({
-                                inputValue,
-                                title: `Add "${inputValue}"`
-                            });
-                            }
                             return filtered;
                         }}
                         selectOnFocus
@@ -245,11 +237,9 @@ function Top() {
                             if (typeof option === "string") {
                             return option;
                             }
-                            return option.kana;
+                            return option.label;
                         }}
-                        renderOption={(props, option) => <li {...props}>{option.kana}</li>}
-                        sx={{ width: 300 }}
-                        freeSolo
+                        renderOption={(props, option) => <li {...props}>{option.label}</li>}
                         renderInput={(params) => <TextField {...params} label="" />}
                         />
                         <button type="button" className="search-btn">

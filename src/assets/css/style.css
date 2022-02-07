@@ -907,6 +907,10 @@ body {
     background-color: white;
 }
 
-.css-viou3o-MuiAutocomplete-root .MuiOutlinedInput-root{
+.MuiTextField-root .MuiOutlinedInput-root{
         padding: 0 !important;
+}
+
+.MuiAutocomplete-root{
+    width: 100% !important;
 }
