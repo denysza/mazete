@@ -34,6 +34,8 @@ html, body {
     line-height: 1.5;
     color: black;
     overflow-x: hidden;
+    min-height: -webkit-fill-available;
+    min-height: 100vh;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -247,7 +249,7 @@ body {
     justify-content: center;
     align-items: center;
     width: 100%;
-    height: 120px;
+    height: 138px;
     background-color: #efefef;
 }
 
@@ -313,7 +315,7 @@ body {
 
 .point-body {
     width: 100%;
-    height: calc(100vh - 253.5px);
+    height: calc(100vh - 271.5px);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -336,11 +338,9 @@ body {
 }
 
 .character-item {
-    width: 24%;
-    height: 25%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    width: 80px;
+    height: 80px;
+    display: inline-block;
     overflow: hidden;
     backdrop-filter: blur(30px);
     border: solid 1px #707070;
@@ -375,8 +375,13 @@ body {
 }
 
 .character-item img {
-    width: 100%;
-    height: auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    min-width: 100%;
+    min-height: 100%;
+    display: block;
 }
 
 .character-item.active img {
@@ -416,11 +421,9 @@ body {
 }
 
 .location-item {
-    width: 32%;
-    height: fit-content;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    width: 113px;
+    height: 76px;
+    display: inline-block;
     overflow: hidden;
     backdrop-filter: blur(30px);
     border: solid 1px #707070;
@@ -454,9 +457,14 @@ body {
     left: 5px;
 }
 
-.location-item img {
-    width: 100%;
-    height: auto;
+.location-item > img {
+    min-width: 100%;
+    min-height: 100%;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    display: block;
 }
 
 .location-item.active img {
@@ -480,7 +488,7 @@ body {
 }
 
 .ls-top-wrap {
-    width: 285px;
+    width: 270px;
     height: 100%;
     padding: 0 10px;
     background-repeat: no-repeat;
@@ -529,13 +537,13 @@ body {
     letter-spacing: normal;
     text-align: center;
     color: #000;
-    margin-bottom: 20px;
+    margin-bottom: 40px;
 }
 
 .ls-main-loading-text {
-    height: 220px;
+    height: 100%;
     width: 100%;
-    position: relative;
+    margin-bottom: 70px;
 }
 
 .ls-main-loading-part {
@@ -572,13 +580,6 @@ body {
 }
 
 .ls-main-edit-btn {
-    width: 100%;
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 30px;
-}
-
-.ls-main-edit-btn a {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -589,9 +590,12 @@ body {
     font-size: 17px;
     line-height: 1.29;
     color: black;
+    position: absolute;
+    right: 20px;
+    top: 25px;
 }
 
-.ls-main-edit-btn a span {
+.ls-main-edit-btn span {
     margin-right: 10px;
 }
 
@@ -619,7 +623,7 @@ body {
     align-items: center;
     position: absolute;
     left: 50%;
-    bottom: 60px;
+    bottom: 25px;
     transform: translateX(-50%);
     white-space: nowrap;
 }
