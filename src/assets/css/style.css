@@ -24,8 +24,6 @@ textarea{
     opacity: 1;
 }
 
-
-
 html, body {
     margin: 0;
     padding: 0;
@@ -784,10 +782,15 @@ body {
     margin-bottom: 10px;
 }
 
-@media(min-width: 400px) {
+@media(max-width: 400px) {
     .character-item {
-        width: 80px;
-        height: 80px;
+        width: 70px;
+        height: 70px;
+    }
+
+    .location-item {
+        width: 101px;
+        height: 70px;
     }
 }
 
@@ -810,6 +813,18 @@ body {
 
     .as-thumb-character.rb {
         width: 160px;
+    }
+}
+
+@media(max-width: 374px) {
+    .character-item {
+        width: 67px;
+        height: 67px;
+    }
+
+    .location-item {
+        width: 95px;
+        height: 64px;
     }
 }
 
@@ -878,6 +893,18 @@ body {
 
     .next-btn {
         font-size: 20px;
+    }
+}
+
+@media(max-width: 349px) {
+    .character-item {
+        width: 62px;
+        height: 62px;
+    }
+
+    .location-item {
+        width: 125px;
+        height: 84px;
     }
 }
 
