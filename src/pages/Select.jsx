@@ -133,7 +133,7 @@ function Top() {
     const handleClickAvatar= (index)=>{
         let arvatars = selectedAvatars
         let indexavatar = characterList.filter(item=>(item.chara_id==index))[0]
-        if(arvatars.includes(indexavatar)){
+        if(arvatars.map(item=>(item.chara_id)).includes(index)){
             for( let i = 0; i < arvatars.length; i++){ 
                                    
                 if ( arvatars[i].chara_id === index) { 
@@ -187,7 +187,6 @@ function Top() {
 
     const handleSubmit = (e)=>{
         e.preventDefault();
-        
         let register_id =  localStorage.register_id || null;
         let search_query = value;
         let chosen_chara_ids = characterList.toString();
@@ -317,7 +316,7 @@ function Top() {
                                 {
                                     characterList.map((image, index)=>(
                                        
-                                        <div style={{backgroundImage:`url(${image.img_url})`}} onClick={()=>handleClickAvatar(image.chara_id)} key={index} className={`${selectedAvatars.includes(image) ? "active" : ""} character-item`}>
+                                        <div style={{backgroundImage:`url(${image.img_url})`}} onClick={()=>handleClickAvatar(image.chara_id)} key={index} className={`${selectedAvatars.map(item=>(item.chara_id)).includes(image.chara_id) ? "active" : ""} character-item`}>
                                             <span></span>
                                         </div>
                                        
@@ -332,7 +331,7 @@ function Top() {
                             <div className="point-body-wrap">
                                 {
                                     worldList.map((area, index)=>(
-                                        <div style={{backgroundImage:`url(${area.img_url})`}} key={index} className={`${selectedArea==area? "active" : ""} location-item`} onClick={(e)=>{setSelectedArea(area)}}>
+                                        <div style={{backgroundImage:`url(${area.img_url})`}} key={index} className={`${selectedArea?.img_url==area.img_url? "active" : ""} location-item`} onClick={(e)=>{setSelectedArea(area)}}>
                                             <span></span>
                                         </div>
                                     ))
