@@ -346,6 +346,8 @@ body {
     margin-bottom: 10px;
     position: relative;
     cursor: pointer;
+    background-position: center;
+    background-size: cover;
 }
 
 .character-item span {
@@ -430,6 +432,8 @@ body {
     margin-bottom: 10px;
     position: relative;
     cursor: pointer;
+    background-position: center;
+    background-size: cover;
 }
 
 .location-item span {

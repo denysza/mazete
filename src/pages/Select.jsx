@@ -317,8 +317,7 @@ function Top() {
                                 {
                                     characterList.map((image, index)=>(
                                        
-                                        <div onClick={()=>handleClickAvatar(image.chara_id)} key={index} className={`${selectedAvatars.includes(image) ? "active" : ""} character-item`}>
-                                            <img src={image.img_url} alt=""/>
+                                        <div style={{backgroundImage:`url(${image.img_url})`}} onClick={()=>handleClickAvatar(image.chara_id)} key={index} className={`${selectedAvatars.includes(image) ? "active" : ""} character-item`}>
                                             <span></span>
                                         </div>
                                        
