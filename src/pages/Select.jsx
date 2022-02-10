@@ -332,8 +332,7 @@ function Top() {
                             <div className="point-body-wrap">
                                 {
                                     worldList.map((area, index)=>(
-                                        <div key={index} className={`${selectedArea==area? "active" : ""} location-item`} onClick={(e)=>{setSelectedArea(area)}}>
-                                            <img src={area.img_url} alt=""/>
+                                        <div style={{backgroundImage:`url(${area.img_url})`}} key={index} className={`${selectedArea==area? "active" : ""} location-item`} onClick={(e)=>{setSelectedArea(area)}}>
                                             <span></span>
                                         </div>
                                     ))
