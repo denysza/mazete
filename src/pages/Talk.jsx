@@ -107,11 +107,20 @@ function Talk() {
     }
     
     const handleNext = ()=>{
-        console.log(data.story)
-        if(!rendering){
+        if(!rendering && !multiple){
             if(data.story.length - 1 > renderIndex){
                 setIndex(renderIndex + 1)
             }
+        }
+    }
+
+    const handleGoback = () =>{
+        console.log(renderIndex)
+        if(renderIndex===0)
+            navigate("/synopsis",{state: {}})
+        if(renderIndex!=0 && !rendering){
+            setIndex(renderIndex - 1);
+            setEnd(false)
         }
     }
 
@@ -125,13 +134,13 @@ function Talk() {
                             <span>準備中</span>
                         </div>
                     </div>
-                    <button className="back-to-btn" onClick={()=>{navigate("/synopsis",{state: {}});}}><img src="/assets/image/back-to-img.svg" alt="" /></button>
+                    <button className="back-to-btn" onClick={handleGoback}><img src="/assets/image/back-to-img.svg" alt="" /></button>
                 </div>
             }
             {
                 !loading &&
                 <div className="container" id="adventure_state">
-                    <div className="container-wrap">
+                    <div className="container-wrap" onClick={handleNext}>
                         <div className="as-thumb" style={{backgroundImage:`url(${data?.background_url})`}}>
                             {avatar && <img src={avatar} alt="" className={`as-thumb-character ${position==0 ? 'lb': position==1 ? 'mb' : 'rb'}`}/>}
                         </div>
@@ -144,7 +153,7 @@ function Talk() {
                             
                         </div>
                         {!end && <div className="text-select-btn-group">
-                            {!multiple && <a onClick={handleNext} className="next-btn">タップして次へ&nbsp;&nbsp;▶</a>}
+                            {!multiple && <a className="next-btn">タップして次へ&nbsp;&nbsp;▶</a>}
                             {multiple && <a className="next-btn active">選択して下さい&nbsp;&nbsp;▶</a>}
                         </div>}
                         {end && <div className="text-select-btn-group">
@@ -152,7 +161,7 @@ function Talk() {
                             <a href="" className="final-btn">この物語をシェアする</a>
                         </div>}
                     </div>
-                    <button className="back-to-btn" onClick={()=>{navigate("/synopsis",{state: {}});}}><img src="/assets/image/back-to-img.svg" alt="" /></button>
+                    <button className="back-to-btn" onClick={handleGoback}><img src="/assets/image/back-to-img.svg" alt="" /></button>
                 </div>
             }
         </>

@@ -380,6 +380,7 @@ body {
     min-width: 100%;
     min-height: 100%;
     display: block;
+    width: 100%;
 }
 
 .character-item.active img {

@@ -56,7 +56,6 @@ function Top() {
                 "search_query":"",
                 "chosen_chara_ids":"",
                 "chosen_world_ids":""
-
             });
             let worldconfig = {
                 method: 'post',
@@ -133,10 +132,11 @@ function Top() {
 
     const handleClickAvatar= (index)=>{
         let arvatars = selectedAvatars
-        if(arvatars.includes(index)){
+        let indexavatar = characterList.filter(item=>(item.chara_id==index))[0]
+        if(arvatars.includes(indexavatar)){
             for( let i = 0; i < arvatars.length; i++){ 
                                    
-                if ( arvatars[i] === index) { 
+                if ( arvatars[i].chara_id === index) { 
                     arvatars.splice(i, 1); 
                     i--;
                 }
@@ -146,7 +146,7 @@ function Top() {
         else{
             if(arvatars.length<3)
             {
-                arvatars.push(index);
+                arvatars.push(indexavatar);
                 setSelectedAvatas([...arvatars]);
             }
         }
@@ -171,8 +171,8 @@ function Top() {
         axios(config)
         .then((response) => {
             localStorage.setItem("outline_id", response.data.outline_id);
-            localStorage.setItem("background",  worldList.filter((item)=>(item.world_id==selectedArea))[0].img_url);
-            localStorage.setItem("user_list",JSON.stringify(selectedAvatars.map((avatar_id)=>(characterList.filter(item=>(item.chara_id==avatar_id))[0].img_url))));
+            localStorage.setItem("background", selectedArea.img_url);
+            localStorage.setItem("user_list",JSON.stringify(selectedAvatars.map((avatar)=>(avatar.img_url))));
             window.location.assign('/synopsis')
         })
         .catch((error)=>{
@@ -185,6 +185,67 @@ function Top() {
         })
     }
 
+    const handleSubmit = (e)=>{
+        e.preventDefault();
+        
+        let register_id =  localStorage.register_id || null;
+        let search_query = value;
+        let chosen_chara_ids = characterList.toString();
+        let chosen_world_ids = worldList.toString();
+        let data = JSON.stringify({
+            "user_id":register_id,
+            "search_query":search_query,
+            "chosen_chara_ids":chosen_chara_ids,
+            "chosen_world_ids":chosen_world_ids
+        });
+        if(tab==1)
+        {
+            let config = {
+                method: 'post',
+                url: `${baseurl}/get_chara_list`,
+                headers: { 
+                    'Content-Type': 'application/json'
+                },
+                    data : data,
+            };
+            axios(config)
+            .then((response) => {
+                setCharacterList(response.data.chara_list)
+            })
+            .catch((error)=>{
+                navigate("/error",
+                    {
+                        state: {
+                            message: "ストーリーの生成に失敗しました。<br/>時間をおいてお試しください"
+                    }
+                });
+            })
+        }
+        else{
+            let config = {
+                method: 'post',
+                url: `${baseurl}/get_world_list`,
+                headers: { 
+                    'Content-Type': 'application/json'
+                },
+                    data : data,
+            };
+            axios(config)
+            .then((response) => {
+                setWorldList(response.data.world_list)
+            })
+            .catch((error)=>{
+                navigate("/error",
+                {
+                    state: {
+                        message: "ストーリーの生成に失敗しました。<br/>時間をおいてお試しください"
+                }
+            });
+            })
+        }
+
+    }
+
 
     return(
         <div className="container" id="character_select">
@@ -192,7 +253,7 @@ function Top() {
                 <div className="preview">
                     <div className="preview-part" onClick={()=>{setTab(1);setAutoList(charaAutoList); setValue(null)}}>
                         <div className="preview-img-part">
-                            {selectedAvatars.map((avatar_id)=>(<img key={avatar_id} src={characterList.filter(item=>(item.chara_id==avatar_id))[0].img_url} alt=""/>))}
+                            {selectedAvatars.map((avatar)=>(<img key={avatar.chara_id} src={avatar.img_url} alt=""/>))}
                             {selectedAvatars.length==0 && <img src='/assets/image/default-avatar.png'/>}
                         </div>
                         <div className={tab===1 ? "preview-title-part active" : "preview-title-part"}>
@@ -201,7 +262,7 @@ function Top() {
                     </div>
                     <div className="preview-part" onClick={()=>{setTab(2); setAutoList(worldAutoList); setValue(null)}}>
                         <div className="preview-img-part">
-                            <img src={selectedArea!=null ? worldList.filter((item)=>(item.world_id==selectedArea))[0].img_url: "/assets/image/point-bg.png"} alt=""/>
+                            <img src={selectedArea!=null ? selectedArea.img_url: "/assets/image/point-bg.png"} alt=""/>
                         </div>
                         <div className={tab===2 ? "preview-title-part active" : "preview-title-part"}>
                             世界
@@ -210,42 +271,45 @@ function Top() {
                 </div>
                 <div className="point-select">
                     <div className="point-search">
-                    <Autocomplete
-                        value={value}
-                        onChange={(event, newValue) => {
-                            if (typeof newValue === "string") {
-                            setValue({
-                                label: newValue
-                            });
-                            } else if (newValue && newValue.inputValue) {
-                            setValue({
-                                label: newValue.inputValue
-                            });
-                            } else {
-                                setValue(newValue);
-                            }
-                        }}
-                        filterOptions={(options, params) => {
-                            const filtered = filter(options, params);
-                            return filtered;
-                        }}
-                        selectOnFocus
-                        clearOnBlur
-                        handleHomeEndKeys
-                        options={autoList}
-                        getOptionLabel={(option) => {
-                            if (typeof option === "string") {
-                            return option;
-                            }
-                            return option.label;
-                        }}
-                        renderOption={(props, option) => <li {...props}>{option.label}</li>}
-                        renderInput={(params) => <TextField {...params} label="" />}
+                    <form onSubmit={handleSubmit}>
+                        <Autocomplete
+                            value={value}
+                            onChange={(event, newValue) => {
+                                if (typeof newValue === "string") {
+                                setValue({
+                                    label: newValue
+                                });
+                                } else if (newValue && newValue.inputValue) {
+                                setValue({
+                                    label: newValue.inputValue
+                                });
+                                } else {
+                                    setValue(newValue);
+                                }
+                            }}
+                            filterOptions={(options, params) => {
+                                const filtered = filter(options, params);
+                                return filtered;
+                            }}
+                            selectOnFocus
+                            clearOnBlur
+                            handleHomeEndKeys
+                            options={autoList}
+                            getOptionLabel={(option) => {
+                                if (typeof option === "string") {
+                                return option;
+                                }
+                                return option.label;
+                            }}
+                            renderOption={(props, option) => <li {...props}>{option.label}</li>}
+                            renderInput={(params) => <TextField {...params} label="" />}
                         />
-                        <button type="button" className="search-btn">
+                        <button className="search-btn">
                             <img src="/assets/image/point-search.png" alt=""/>
                         </button>
+                    </form>
                     </div>
+                    
                     <div className="point-body">
                         {
                             tab===1
@@ -253,7 +317,7 @@ function Top() {
                                 {
                                     characterList.map((image, index)=>(
                                        
-                                        <div onClick={()=>handleClickAvatar(image.chara_id)} key={index} className={`${selectedAvatars.includes(image.chara_id) ? "active" : ""} character-item`}>
+                                        <div onClick={()=>handleClickAvatar(image.chara_id)} key={index} className={`${selectedAvatars.includes(image) ? "active" : ""} character-item`}>
                                             <img src={image.img_url} alt=""/>
                                             <span></span>
                                         </div>
@@ -269,7 +333,7 @@ function Top() {
                             <div className="point-body-wrap">
                                 {
                                     worldList.map((area, index)=>(
-                                        <div key={index} className={`${selectedArea==area.world_id? "active" : ""} location-item`} onClick={(e)=>{setSelectedArea(area.world_id)}}>
+                                        <div key={index} className={`${selectedArea==area? "active" : ""} location-item`} onClick={(e)=>{setSelectedArea(area)}}>
                                             <img src={area.img_url} alt=""/>
                                             <span></span>
                                         </div>
