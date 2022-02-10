@@ -152,12 +152,12 @@ function Top() {
         }
     }
 
-    const handleOutline = () =>{
+    const handleOutline = () => {
         let register_id =  localStorage.register_id || null;
         let data = JSON.stringify({
             "user_id":register_id,
-            "chosen_chara_ids":selectedAvatars.toString(),
-            "chosen_world_ids":[selectedArea].toString()
+            "chosen_chara_ids":selectedAvatars.map(item=>(item.chara_id)).toString(),
+            "chosen_world_ids":[selectedArea.world_id].toString()
 
         });
         let config = {
@@ -189,8 +189,10 @@ function Top() {
         e.preventDefault();
         let register_id =  localStorage.register_id || null;
         let search_query = value;
-        let chosen_chara_ids = characterList.toString();
-        let chosen_world_ids = worldList.toString();
+        let chosen_chara_ids = selectedAvatars.map(item=>(item.chara_id)).toString();
+        let chosen_world_ids = "";
+        if(selectedArea)
+            chosen_world_ids =[selectedArea.world_id].toString();
         let data = JSON.stringify({
             "user_id":register_id,
             "search_query":search_query,
