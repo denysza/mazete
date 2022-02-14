@@ -21,6 +21,8 @@ function Top() {
     const [value, setValue] = useState(null);
 
     useEffect(() => {
+        let vh = window.innerHeight;
+        document.getElementById("character_select").style.height = vh + "px";
         let register_id =  localStorage.register_id || null;
         if(!register_id)
             window.location.assign("/");
@@ -336,10 +338,10 @@ function Top() {
                                 }
                             </div>
                         }
-                        <button onClick={handleOutline} className={`character-add-btn ${active ? "active" : ""}`} disabled={!active}>マぜる</button>
                     </div>
                 </div>
             </div>
+            <button onClick={handleOutline} className={`character-add-btn ${active ? "active" : ""}`} disabled={!active}>マぜる</button>
         </div>
     )
 }

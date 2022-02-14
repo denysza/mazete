@@ -1,4 +1,4 @@
-import { useState, useEffect} from 'react';
+import { useState, useEffect, useLayoutEffect} from 'react';
 import { useParams } from "react-router-dom";
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
@@ -6,6 +6,19 @@ const baseurl = import.meta.env.REACT_APP_API_BASE_URL;
 
 function sleep(ms) {
     return new Promise(resolve => (setTimeout(resolve, ms)));
+}
+
+function useWindowSize() {
+    const [size, setSize] = useState([0, 0]);
+    useLayoutEffect(() => {
+      function updateSize() {
+        setSize([window.innerWidth, window.innerHeight]);
+      }
+      window.addEventListener('resize', updateSize);
+      updateSize();
+      return () => window.removeEventListener('resize', updateSize);
+    }, []);
+    return size;
 }
 
 function Talk() {
@@ -18,11 +31,15 @@ function Talk() {
     const [renderText, setRenderText] = useState([]);
     const [multiple, setMultiple] = useState(false);
     const [end, setEnd] = useState(false);
-    const [rendering, setRendering] = useState(false)
+    const [rendering, setRendering] = useState(false);
+    const [width, height] = useWindowSize();
 
     let {story_id} = useParams();
+    // let vh = window.innerHeight;
 
     useEffect(() => {
+        // document.getElementById("adventure_state").style.height = vh + "px";
+
         let register_id =  localStorage.register_id || null;
         
         let data = JSON.stringify({
@@ -139,7 +156,7 @@ function Talk() {
             }
             {
                 !loading &&
-                <div className="container" id="adventure_state">
+                <div className="container" id="adventure_state" style={{height: height}}>
                     <div className="container-wrap" onClick={handleNext}>
                         <div className="as-thumb" style={{backgroundImage:`url(${data?.background_url})`}}>
                             {avatar && <img src={avatar} alt="" className={`as-thumb-character ${position==0 ? 'lb': position==1 ? 'mb' : 'rb'}`}/>}
@@ -152,16 +169,16 @@ function Talk() {
                             ))}
                             
                         </div>
-                        {!end && <div className="text-select-btn-group">
-                            {!multiple && <a className="next-btn">タップして次へ&nbsp;&nbsp;▶</a>}
-                            {multiple && <a className="next-btn active">選択して下さい&nbsp;&nbsp;▶</a>}
-                        </div>}
-                        {end && <div className="text-select-btn-group">
-                            <a href="" className="final-btn">もう一度見る</a>
-                            <a href="" className="final-btn">この物語をシェアする</a>
-                        </div>}
                     </div>
                     <button className="back-to-btn" onClick={handleGoback}><img src="/assets/image/back-to-img.svg" alt="" /></button>
+                    {!end && <div className="text-select-btn-group">
+                        {!multiple && <a className="next-btn">タップして次へ&nbsp;&nbsp;▶</a>}
+                        {multiple && <a className="next-btn active">選択して下さい&nbsp;&nbsp;▶</a>}
+                    </div>}
+                    {end && <div className="text-select-btn-group">
+                        <a href="" className="final-btn">もう一度見る</a>
+                        <a href="" className="final-btn">この物語をシェアする</a>
+                    </div>}
                 </div>
             }
         </>

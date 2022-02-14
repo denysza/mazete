@@ -34,6 +34,7 @@ html, body {
     overflow-x: hidden;
     min-height: -webkit-fill-available;
     min-height: 100vh;
+    height: calc(var(--vh, 1vh) * 100);
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -317,7 +318,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 40px 10px 0;
+    padding: 40px 0 0 10px;
     position: relative;
 }
 
@@ -326,9 +327,9 @@ body {
     overflow-y: scroll;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: flex-start;
-    margin-bottom: 60px;
+    margin-bottom: 120px;
 }
 
 .point-body-wrap::-webkit-scrollbar {
@@ -343,7 +344,7 @@ body {
     backdrop-filter: blur(30px);
     border: solid 1px #707070;
     border-radius: 4px;
-    margin-bottom: 10px;
+    margin: 0 10px 10px 0;
     position: relative;
     cursor: pointer;
     background-position: center;
@@ -406,7 +407,7 @@ body {
     align-items: center;
     white-space: nowrap;
     position: absolute;
-    bottom: 0;
+    bottom: 20px;
     left: 50%;
     transform: translateX(-50%);
 }
@@ -429,7 +430,7 @@ body {
     backdrop-filter: blur(30px);
     border: solid 1px #707070;
     border-radius: 4px;
-    margin-bottom: 10px;
+    margin: 0 8px 10px 0;
     position: relative;
     cursor: pointer;
     background-position: center;
@@ -546,7 +547,7 @@ body {
 .ls-main-loading-text {
     height: 100%;
     width: 100%;
-    margin-bottom: 70px;
+    margin-bottom: 120px;
 }
 
 .ls-main-loading-part {
@@ -626,7 +627,7 @@ body {
     align-items: center;
     position: absolute;
     left: 50%;
-    bottom: 25px;
+    bottom: 20px;
     transform: translateX(-50%);
     white-space: nowrap;
 }
@@ -754,7 +755,6 @@ body {
     align-items: center;
 }
 
-
 .next-btn {
     font-size: 22px;
     font-weight: normal;
@@ -788,6 +788,10 @@ body {
 }
 
 @media(max-width: 400px) {
+    .point-body {
+        padding: 40px 0 0 12.5px;
+    }
+
     .character-item {
         width: 70px;
         height: 70px;
@@ -822,6 +826,10 @@ body {
 }
 
 @media(max-width: 374px) {
+    .point-body {
+        padding: 40px 0 0 11px;
+    }
+
     .character-item {
         width: 67px;
         height: 67px;
@@ -899,20 +907,21 @@ body {
     .next-btn {
         font-size: 20px;
     }
-}
 
-@media(max-width: 349px) {
+    .point-body {
+        padding: 40px 0 0 10px;
+    }
+
     .character-item {
-        width: 62px;
-        height: 62px;
+        width: 57px;
+        height: 57px;
     }
 
     .location-item {
-        width: 125px;
-        height: 84px;
+        width: 82px;
+        height: 55px;
     }
 }
-
 
 .full-height {
     height: 100vh;
