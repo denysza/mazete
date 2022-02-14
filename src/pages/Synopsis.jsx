@@ -12,6 +12,7 @@ function Synopsis() {
     const [data, setData] = useState("ビルの屋上にあつめられたゴン達。\n\n利根川から鉄骨の上を渡って、向こうのビルへ行けたものに賞金がもらえると説明を受ける。\n\nゴン達はいかにしてこの危機を乗り越えるのか？")
     const [userdata,setUserData] = useState([]);
     const [background, setBackground] = useState(null);
+    
     useEffect(() => {
         let register_id =  localStorage.register_id || null;
         let outline_id = localStorage.outline_id || null;
@@ -99,7 +100,8 @@ function Synopsis() {
         <div className="container" id="loading_synposis">
             <div className="container-wrap">
                 <div className={`ls-top ${editable?"editing" : ""}`} >
-                    <div className="ls-top-wrap" style={{backgroundImage:`url(${background}`}}>
+                    <div className="
+                    " style={{backgroundImage:`url(${background}`}}>
                         <div className="ls-top-body">
                             {userdata.map((item,index)=>(
                                 <div key={index} className="ls-top-item">

@@ -21,6 +21,9 @@ function Top() {
     const [value, setValue] = useState(null);
 
     useEffect(() => {
+        let vh = window.innerHeight;
+        // Then we set the value in the --vh custom property to the root of the document
+        document.getElementById("character_select").style.height = vh + "px";
         let register_id =  localStorage.register_id || null;
         if(!register_id)
             window.location.assign("/");
