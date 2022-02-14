@@ -314,7 +314,6 @@ body {
 
 .point-body {
     width: 100%;
-    height: calc(100vh - 271.5px);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -329,7 +328,6 @@ body {
     flex-wrap: wrap;
     justify-content: flex-start;
     align-items: flex-start;
-    margin-bottom: 120px;
 }
 
 .point-body-wrap::-webkit-scrollbar {
@@ -394,6 +392,17 @@ body {
     display: block;
 }
 
+.character-add-btn-part {
+    position: absolute;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 85px;
+    background-color: white;
+}
+
 .character-add-btn {
     padding: 5px 10px;
     height: 45px;
@@ -406,10 +415,6 @@ body {
     justify-content: center;
     align-items: center;
     white-space: nowrap;
-    position: absolute;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
 }
 
 .character-add-btn.active:hover {
@@ -525,7 +530,6 @@ body {
 
 .ls-main {
     width: 100%;
-    height: calc(100vh - 180px);
     padding: 25px 20px;
     display: flex;
     flex-direction: column;
@@ -547,7 +551,6 @@ body {
 .ls-main-loading-text {
     height: 100%;
     width: 100%;
-    margin-bottom: 120px;
 }
 
 .ls-main-loading-part {
@@ -607,10 +610,20 @@ body {
     width: 17px;
 }
 
+.ls-main-making-btn-part {
+    position: absolute;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 85px;
+}
+
 .ls-main-making-btn {
     min-width: 160px;
     padding: 5px 10px;
-    height: 43px;
+    height: 45px;
     border-radius: 48px;
     background-color: #8f8f8f;
     border: 2px solid #8f8f8f;
@@ -625,10 +638,6 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    position: absolute;
-    left: 50%;
-    bottom: 20px;
-    transform: translateX(-50%);
     white-space: nowrap;
 }
 
@@ -798,8 +807,8 @@ body {
     }
 
     .location-item {
-        width: 101px;
-        height: 70px;
+        width: 99px;
+        height: 66px;
     }
 }
 
