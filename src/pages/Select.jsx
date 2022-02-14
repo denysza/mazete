@@ -22,7 +22,6 @@ function Top() {
 
     useEffect(() => {
         let vh = window.innerHeight;
-        // Then we set the value in the --vh custom property to the root of the document
         document.getElementById("character_select").style.height = vh + "px";
         let register_id =  localStorage.register_id || null;
         if(!register_id)
@@ -344,10 +343,10 @@ function Top() {
                                 
                             </div>
                         }
-                        <button onClick={handleOutline} className={`character-add-btn ${active ? "active" : ""}`} disabled={!active}>マぜる</button>
                     </div>
                 </div>
             </div>
+            <button onClick={handleOutline} className={`character-add-btn ${active ? "active" : ""}`} disabled={!active}>マぜる</button>
         </div>
     )
 }

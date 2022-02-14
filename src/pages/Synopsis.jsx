@@ -14,6 +14,8 @@ function Synopsis() {
     const [background, setBackground] = useState(null);
     
     useEffect(() => {
+        let vh = window.innerHeight;
+        document.getElementById("loading_synposis").style.height = vh + "px";
         let register_id =  localStorage.register_id || null;
         let outline_id = localStorage.outline_id || null;
         let background = localStorage.background || null;
@@ -100,8 +102,7 @@ function Synopsis() {
         <div className="container" id="loading_synposis">
             <div className="container-wrap">
                 <div className={`ls-top ${editable?"editing" : ""}`} >
-                    <div className="
-                    " style={{backgroundImage:`url(${background}`}}>
+                    <div className="" style={{backgroundImage:`url(${background}`, backgroundRepeat: 'no-repeat', backgroundSize: 'cover'}}>
                         <div className="ls-top-body">
                             {userdata.map((item,index)=>(
                                 <div key={index} className="ls-top-item">
@@ -128,9 +129,9 @@ function Synopsis() {
                     </div>
                     {!editable && <a className="ls-main-edit-btn" onClick={()=>{focusText.current.focus();setEditable(true)}}><span>編集</span><img src="/assets/image/edit-icon.png" alt=""/></a>
                     }
-                    {!editable && <button onClick={handleTalk}  className={loading ? "ls-main-making-btn" : "ls-main-making-btn active"} disabled={loading}>この世界線に入る</button>}
                 </div>
             </div>
+            {!editable && <button onClick={handleTalk}  className={loading ? "ls-main-making-btn" : "ls-main-making-btn active"} disabled={loading}>この世界線に入る</button>}
         </div>
     )
 }

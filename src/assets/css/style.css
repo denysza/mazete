@@ -329,7 +329,7 @@ body {
     flex-wrap: wrap;
     justify-content: flex-start;
     align-items: flex-start;
-    margin-bottom: 100px;
+    margin-bottom: 120px;
 }
 
 .point-body-wrap::-webkit-scrollbar {
@@ -407,7 +407,7 @@ body {
     align-items: center;
     white-space: nowrap;
     position: absolute;
-    bottom: 40px;
+    bottom: 20px;
     left: 50%;
     transform: translateX(-50%);
 }
@@ -547,7 +547,7 @@ body {
 .ls-main-loading-text {
     height: 100%;
     width: 100%;
-    margin-bottom: 110px;
+    margin-bottom: 120px;
 }
 
 .ls-main-loading-part {
@@ -627,7 +627,7 @@ body {
     align-items: center;
     position: absolute;
     left: 50%;
-    bottom: 65px;
+    bottom: 20px;
     transform: translateX(-50%);
     white-space: nowrap;
 }
@@ -754,7 +754,6 @@ body {
     flex-direction: column;
     align-items: center;
 }
-
 
 .next-btn {
     font-size: 22px;
