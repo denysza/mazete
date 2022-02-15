@@ -1,4 +1,4 @@
-import {useState, useEffect} from 'react'
+import {useState, useEffect, useLayoutEffect} from 'react'
 import axios from 'axios'
 import { useNavigate } from "react-router-dom";
 import TextField from "@mui/material/TextField";
@@ -6,7 +6,21 @@ import Autocomplete, { createFilterOptions } from "@mui/material/Autocomplete";
 const baseurl = import.meta.env.REACT_APP_API_BASE_URL;
 const filter = createFilterOptions({
     stringify: (option) => option.kana + option.label
-  });
+});
+
+function useWindowSize() {
+    const [size, setSize] = useState([0, 0]);
+    useLayoutEffect(() => {
+      function updateSize() {
+        setSize([window.innerWidth, window.innerHeight]);
+      }
+      window.addEventListener('resize', updateSize);
+      updateSize();
+      return () => window.removeEventListener('resize', updateSize);
+    }, []);
+    return size;
+}
+
 function Top() {
     const navigate = useNavigate();
     const [tab, setTab] = useState(1);
@@ -19,6 +33,7 @@ function Top() {
     const [charaAutoList, setCharAutoList] = useState([]);
     const [autoList, setAutoList] = useState([]);
     const [value, setValue] = useState(null);
+    const [width, height] = useWindowSize();
 
     useEffect(() => {
         let vh = window.innerHeight;
@@ -312,7 +327,7 @@ function Top() {
                     </form>
                     </div>
                     
-                    <div className="point-body">
+                    <div className="point-body" style={{height: `calc(${height}px - 380px)`}}>
                         {
                             tab===1
                             && <div className="point-body-wrap">
@@ -341,7 +356,9 @@ function Top() {
                     </div>
                 </div>
             </div>
-            <button onClick={handleOutline} className={`character-add-btn ${active ? "active" : ""}`} disabled={!active}>マぜる</button>
+            <div className="character-add-btn-part">
+                <button onClick={handleOutline} className={`character-add-btn ${active ? "active" : ""}`} disabled={!active}>マぜる</button>
+            </div>
         </div>
     )
 }

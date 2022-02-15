@@ -1,8 +1,20 @@
-import { useState, useEffect, useRef} from 'react'
+import { useState, useEffect, useLayoutEffect, useRef} from 'react'
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 const baseurl = import.meta.env.REACT_APP_API_BASE_URL;
 
+function useWindowSize() {
+    const [size, setSize] = useState([0, 0]);
+    useLayoutEffect(() => {
+      function updateSize() {
+        setSize([window.innerWidth, window.innerHeight]);
+      }
+      window.addEventListener('resize', updateSize);
+      updateSize();
+      return () => window.removeEventListener('resize', updateSize);
+    }, []);
+    return size;
+}
 
 function Synopsis() {
     const navigate = useNavigate();
@@ -12,6 +24,7 @@ function Synopsis() {
     const [data, setData] = useState("ビルの屋上にあつめられたゴン達。\n\n利根川から鉄骨の上を渡って、向こうのビルへ行けたものに賞金がもらえると説明を受ける。\n\nゴン達はいかにしてこの危機を乗り越えるのか？")
     const [userdata,setUserData] = useState([]);
     const [background, setBackground] = useState(null);
+    const [width, height] = useWindowSize();
     
     useEffect(() => {
         let vh = window.innerHeight;
@@ -112,11 +125,11 @@ function Synopsis() {
                         </div>
                     </div>
                 </div>
-                <div className="ls-main">
+                <div className="ls-main" style={{height: `calc(${height}px - 280px)`}}>
                     <div className="ls-main-title">
                         あらすじ
                     </div>
-                    <div className="ls-main-loading-text">
+                    <div className="ls-main-loading-text" style={{height: `calc(100% - 70px)`}}>
                         {loading &&
                             <div className="ls-main-loading-part">
                                 <img src="/assets/image/white-loading.gif" alt=""/>
@@ -131,7 +144,7 @@ function Synopsis() {
                     }
                 </div>
             </div>
-            {!editable && <button onClick={handleTalk}  className={loading ? "ls-main-making-btn" : "ls-main-making-btn active"} disabled={loading}>この世界線に入る</button>}
+            {!editable && <div className="ls-main-making-btn-part"><button onClick={handleTalk}  className={loading ? "ls-main-making-btn" : "ls-main-making-btn active"} disabled={loading}>この世界線に入る</button></div>}
         </div>
     )
 }
