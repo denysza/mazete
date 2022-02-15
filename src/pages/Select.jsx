@@ -328,7 +328,7 @@ function Top() {
                     </form>
                     </div>
                     
-                    <div className="point-body" style={{height: `calc(${height}px - 380px)`}}>
+                    <div className="point-body" style={{height: `calc(${height}px - 340px)`}}>
                         {
                             tab===1
                             && <div className="point-body-wrap">
