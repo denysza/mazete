@@ -261,7 +261,6 @@ function Top() {
             });
             })
         }
-
     }
 
 
@@ -319,7 +318,7 @@ function Top() {
                                 }
                                 return option.label;
                             }}
-                            renderOption={(props, option) => <li {...props}>{option.label}</li>}
+                            renderOption={(props, option) => <li {...props} >{option.label}</li>}
                             renderInput={(params) => <TextField {...params} label="" />}
                         />
                         <button className="search-btn">
@@ -338,10 +337,7 @@ function Top() {
                                         <div style={{backgroundImage:`url(${image.img_url})`}} onClick={()=>handleClickAvatar(image.chara_id)} key={index} className={`${selectedAvatars.map(item=>(item.chara_id)).includes(image.chara_id) ? "active" : ""} character-item`}>
                                             <span></span>
                                         </div>
-                                       
-                                      
                                     ))
-                                   
                                 }
                             </div>
                         }
@@ -355,7 +351,6 @@ function Top() {
                                         </div>
                                     ))
                                 }
-                                
                             </div>
                         }
                     </div>

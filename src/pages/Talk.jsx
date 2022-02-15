@@ -85,11 +85,19 @@ function Talk() {
             setTalk()
         }
     }, [data, renderIndex])
+    
+    useEffect(async () => {
+        if(data){
+            let stroyData = data.story;
+            await sleep(1);
+            setPosition(stroyData[renderIndex].position)
+        }
+    }, [avatar])
 
     const setTalk=()=>{
         let stroyData = data.story;
         setAvatar(stroyData[renderIndex].chara_img_url);
-        setPosition(stroyData[renderIndex].position)
+       // setPosition(stroyData[renderIndex].position)
         if(stroyData[renderIndex].multiple){
             setMultiple(true);
             setRenderText(stroyData[renderIndex].content);
