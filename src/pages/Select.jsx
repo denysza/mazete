@@ -270,8 +270,8 @@ function Top() {
                 <div className="preview">
                     <div className="preview-part" onClick={()=>{setTab(1);setAutoList(charaAutoList); setValue(null)}}>
                         <div className="preview-img-part">
-                            {selectedAvatars.map((avatar)=>(<img key={avatar.chara_id} src={avatar.img_url} alt=""/>))}
-                            {selectedAvatars.length==0 && <img src='/assets/image/default-avatar.png'/>}
+                            {selectedAvatars.map((avatar)=>(<div key={avatar.chara_id} style={{backgroundImage:`url(${avatar.img_url})`}} className="avatar-preview"/>))}
+                            {selectedAvatars.length==0 && <div className="avatar-preview" style={{backgroundImage:`url(/assets/image/default-avatar.png)`}}></div>}
                         </div>
                         <div className={tab===1 ? "preview-title-part active" : "preview-title-part"}>
                             キャラ
@@ -279,7 +279,7 @@ function Top() {
                     </div>
                     <div className="preview-part" onClick={()=>{setTab(2); setAutoList(worldAutoList); setValue(null)}}>
                         <div className="preview-img-part">
-                            <img src={selectedArea!=null ? selectedArea.img_url: "/assets/image/point-bg.png"} alt=""/>
+                            <div style={{backgroundImage:`url(${selectedArea!=null ? selectedArea.img_url: "/assets/image/point-bg.png"})`}} className={selectedArea!=null ? "world-preview":"world-none-preview"}/>
                         </div>
                         <div className={tab===2 ? "preview-title-part active" : "preview-title-part"}>
                             世界
