@@ -7,6 +7,11 @@
     src: url(../font/segoeui.ttf);
 }
 
+@font-face {
+    font-family: HGPSoeiKakugothicUB;
+    src: url(../font/hgrsgu.ttc);
+}
+
 html {
     scroll-behavior: smooth;
 }
@@ -83,8 +88,8 @@ body {
 
 .back-to-btn {
     position: absolute;
-    top: 20px;
-    left: 10px;
+    top: 5px;
+    left: 0;
     background-color: transparent;
     outline: none;
     border: none;
@@ -248,7 +253,7 @@ body {
     justify-content: center;
     align-items: center;
     width: 100%;
-    height: 138px;
+    height: 127px;
     background-color: #efefef;
 }
 
@@ -258,6 +263,32 @@ body {
     background-position: center;
     background-size: cover;
     margin: 0 5px;
+    position: relative;
+}
+
+.avatar-preview-close {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 15px;
+    height: 15px;
+    background-color: rgba(0,0,0,0.5);
+}
+
+.avatar-preview-close span {
+    width: 13px;
+    border-bottom: 1px solid #fff;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+}
+
+.avatar-preview-close span:first-child {
+    transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.avatar-preview-close span:last-child {
+    transform: translate(-50%, -50%) rotate(-45deg);
 }
 
 .world-preview {
@@ -280,7 +311,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 21px;
+    font-size: 18px;
     color: #8f8f8f;
     cursor: pointer;
 }
@@ -324,12 +355,17 @@ body {
     height: 22px;
 }
 
+.point-intro {
+    font-size: 13px;
+    margin-top: 10px;
+}
+
 .point-body {
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 40px 0 0 10px;
+    padding: 20px 0 0 10px;
     position: relative;
 }
 
@@ -496,6 +532,10 @@ body {
     display: block;
 }
 
+#loading_synposis {
+    position: relative;
+}
+
 .ls-top {
     width: 100%;
     height: 180px;
@@ -536,7 +576,6 @@ body {
     background-position: center;
     background-size: cover;
 }
-
 
 .ls-main {
     width: 100%;
@@ -749,9 +788,10 @@ body {
 
 .as-text-wrap {
     width: 100%;
-    min-height: 40px;
+    min-height: 80px;
     padding: 5px 10px;
-    border: solid 1px #fff;
+    border-radius: 7px;
+    border: solid 2px #fff;
     background-color: #000;
     font-size: 22px;
     font-weight: normal;
@@ -762,6 +802,18 @@ body {
     text-align: left;
     color: #fff;
     margin-bottom: 10px;
+    position: relative;
+}
+
+.as-text-wrap::after {
+    content: "";
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    border-top: 20px solid white;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: none;
 }
 
 .text-select-btn-group {
@@ -771,8 +823,12 @@ body {
     bottom: 20px;
     width: 100%;
     display: flex;
-    flex-direction: column;
+    justify-content: center;
     align-items: center;
+}
+
+.text-select-btn-group a:first-child {
+    margin-right: 20px;
 }
 
 .next-btn {
@@ -792,19 +848,41 @@ body {
 }
 
 .final-btn {
-    width: 270px;
-    height: 50px;
+    width: 116px;
+    height: 40px;
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: 28px;
+    border-radius: 26px;
     border: solid 2px #f8f8f8;
     font-size: 22px;
     color: white;
 }
 
-.final-btn:first-child {
-    margin-bottom: 10px;
+.final-btn:hover {
+    background-color: white;
+    color: black;
+}
+
+.common-header {
+    width: 100%;
+    height: 50px;
+    background-color: #21335b;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    line-height: 1.2;
+}
+
+.common-header-title01 {
+    font-size: 13px;
+}
+
+.common-header-title02 {
+    font-size: 28px;
+    font-family: "HGPSoeiKakugothicUB";
 }
 
 @media(max-width: 400px) {

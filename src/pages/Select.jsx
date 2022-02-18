@@ -267,10 +267,18 @@ function Top() {
     return(
         <div className="container" id="character_select">
             <div className="container-wrap">
+                <div className="common-header">
+                    <div className="common-header-title01">
+                        -作品リミックス-
+                    </div>
+                    <div className="common-header-title02">
+                        マぜて
+                    </div>
+                </div>
                 <div className="preview">
                     <div className="preview-part" onClick={()=>{setTab(1);setAutoList(charaAutoList); setValue(null)}}>
                         <div className="preview-img-part">
-                            {selectedAvatars.map((avatar)=>(<div key={avatar.chara_id} style={{backgroundImage:`url(${avatar.img_url})`}} className="avatar-preview"/>))}
+                            {selectedAvatars.map((avatar)=>(<div key={avatar.chara_id} style={{backgroundImage:`url(${avatar.img_url})`}} className="avatar-preview"><div className="avatar-preview-close"><span></span><span></span></div></div>))}
                             {selectedAvatars.length==0 && <div className="avatar-preview" style={{backgroundImage:`url(/assets/image/default-avatar.png)`}}></div>}
                         </div>
                         <div className={tab===1 ? "preview-title-part active" : "preview-title-part"}>
@@ -326,8 +334,10 @@ function Top() {
                         </button>
                     </form>
                     </div>
-                    
-                    <div className="point-body" style={{height: `calc(${height}px - 340px)`}}>
+                    <div className="point-intro">
+                        画像はBingの検索結果をもとに表示しています
+                    </div>
+                    <div className="point-body" style={{height: `calc(${height}px - 420px)`}}>
                         {
                             tab===1
                             && <div className="point-body-wrap">

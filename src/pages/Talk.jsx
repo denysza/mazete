@@ -178,14 +178,14 @@ function Talk() {
                             
                         </div>
                     </div>
-                    <button className="back-to-btn" onClick={handleGoback}><img src="/assets/image/back-to-img.svg" alt="" /></button>
-                    {!end && <div className="text-select-btn-group">
+                    <button className="back-to-btn" onClick={handleGoback}><img src="/assets/image/back-to-img.png" alt="" /></button>
+                    {/* {!end && <div className="text-select-btn-group">
                         {!multiple && <a className="next-btn">タップして次へ&nbsp;&nbsp;▶</a>}
                         {multiple && <a className="next-btn active">選択して下さい&nbsp;&nbsp;▶</a>}
-                    </div>}
+                    </div>} */}
                     {end && <div className="text-select-btn-group">
-                        <a href="" className="final-btn">もう一度見る</a>
-                        <a href="" className="final-btn">この物語をシェアする</a>
+                        <a href="" className="final-btn">トップへ</a>
+                        <a href="" className="final-btn">シェア</a>
                     </div>}
                 </div>
             }

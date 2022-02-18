@@ -143,6 +143,7 @@ function Synopsis() {
                     }
                 </div>
             </div>
+            <button className="back-to-btn"><img src="/assets/image/back-to-img.png" alt="" /></button>
             {!editable && <div className="ls-main-making-btn-part"><button onClick={handleTalk}  className={loading ? "ls-main-making-btn" : "ls-main-making-btn active"} disabled={loading}>この世界線に入る</button></div>}
         </div>
     )
