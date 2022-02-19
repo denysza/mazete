@@ -33,9 +33,8 @@ function Synopsis() {
         let outline_id = localStorage.outline_id || null;
         let background = localStorage.background || null;
         let user_list = localStorage.user_list || null;
-        console.log(user_list,background)
         if(!user_list || !background){
-            navigate("/select",{state: {}})
+            navigate("/",{state: {}})
         }
 
         setBackground(background);
@@ -143,7 +142,7 @@ function Synopsis() {
                     }
                 </div>
             </div>
-            <button className="back-to-btn"><img src="/assets/image/back-to-img.png" alt="" /></button>
+            {!editable && <button className="back-to-btn" onClick={()=>{let user_list = localStorage.user_list || null; navigate("/",{state: {user_list:user_list}})}}><img src="/assets/image/back-to-img.png" alt="" /></button>}
             {!editable && <div className="ls-main-making-btn-part"><button onClick={handleTalk}  className={loading ? "ls-main-making-btn" : "ls-main-making-btn active"} disabled={loading}>この世界線に入る</button></div>}
         </div>
     )

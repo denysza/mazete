@@ -77,8 +77,20 @@ function Talk() {
                         message: "ストーリーの生成に失敗しました。<br/>時間をおいてお試しください"
                 }
             });
-        })
-    }, [])
+        });
+
+        window.history.pushState(null, null, window.location.pathname);
+        window.addEventListener('popstate', onBackButtonEvent);
+        return () => {
+        window.removeEventListener('popstate', onBackButtonEvent);  
+        };
+    }, []);
+
+    const onBackButtonEvent = (e) => {
+        e.preventDefault();
+        setIndex(0); 
+        setEnd(false);
+    }
 
     useEffect(() => {
         if(data){
@@ -171,7 +183,7 @@ function Talk() {
                         </div>
                         <div className="as-text">
                             {renderText.map((item,index)=>(
-                                <div key={index} className="as-text-wrap" onClick={()=>{selectText(item)}}>
+                                <div key={index} className={`as-text-wrap ${multiple?"":"arrow"}`} onClick={()=>{selectText(item)}}>
                                     {item}
                                 </div>
                             ))}
@@ -184,8 +196,8 @@ function Talk() {
                         {multiple && <a className="next-btn active">選択して下さい&nbsp;&nbsp;▶</a>}
                     </div>} */}
                     {end && <div className="text-select-btn-group">
-                        <a href="" className="final-btn">トップへ</a>
-                        <a href="" className="final-btn">シェア</a>
+                        <a onClick={()=>{setIndex(0); setEnd(false)}} className="final-btn">トップへ</a>
+                        <a className="final-btn">シェア</a>
                     </div>}
                 </div>
             }

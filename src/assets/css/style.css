@@ -805,7 +805,7 @@ body {
     position: relative;
 }
 
-.as-text-wrap::after {
+.arrow::after {
     content: "";
     position: absolute;
     bottom: 5px;
