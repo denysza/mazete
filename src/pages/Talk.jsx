@@ -81,15 +81,13 @@ function Talk() {
 
         window.history.pushState(null, null, window.location.pathname);
         window.addEventListener('popstate', onBackButtonEvent);
-        return () => {
-        window.removeEventListener('popstate', onBackButtonEvent);  
-        };
     }, []);
 
     const onBackButtonEvent = (e) => {
         e.preventDefault();
         setIndex(0); 
         setEnd(false);
+        window.history.pushState(null, null, window.location.pathname);
     }
 
     useEffect(() => {
@@ -156,7 +154,7 @@ function Talk() {
         if(renderIndex===0)
             navigate("/synopsis",{state: {}})
         if(renderIndex!=0 && !rendering){
-            setIndex(renderIndex - 1);
+            setIndex(0);
             setEnd(false)
         }
     }
@@ -171,7 +169,7 @@ function Talk() {
                             <span>準備中</span>
                         </div>
                     </div>
-                    <button className="back-to-btn" onClick={handleGoback}><img src="/assets/image/back-to-img.svg" alt="" /></button>
+                    {/* <button className="back-to-btn" onClick={handleGoback}><img src="/assets/image/back-to-img.svg" alt="" /></button> */}
                 </div>
             }
             {
@@ -190,7 +188,7 @@ function Talk() {
                             
                         </div>
                     </div>
-                    <button className="back-to-btn" onClick={handleGoback}><img src="/assets/image/back-to-img.png" alt="" /></button>
+                    <button className="back-to-btn" onClick={handleGoback}><img src={renderIndex==0 ? "/assets/image/back-to-img.png" : "/assets/image/back.png"} alt="" /></button>
                     {/* {!end && <div className="text-select-btn-group">
                         {!multiple && <a className="next-btn">タップして次へ&nbsp;&nbsp;▶</a>}
                         {multiple && <a className="next-btn active">選択して下さい&nbsp;&nbsp;▶</a>}

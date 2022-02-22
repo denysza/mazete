@@ -328,7 +328,7 @@ function Top() {
                             <div style={{backgroundImage:`url(${selectedArea!=null ? selectedArea.img_url: "/assets/image/point-bg.png"})`}} className={selectedArea!=null ? "world-preview":"world-none-preview"}/>
                         </div>
                         <div className={tab===2 ? "preview-title-part active" : "preview-title-part"}>
-                            世界
+                        シチュエーション
                         </div>
                     </div>
                 </div>

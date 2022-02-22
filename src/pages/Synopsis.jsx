@@ -125,7 +125,7 @@ function Synopsis() {
                 </div>
                 <div className="ls-main" style={{height: `calc(${height}px - 280px)`}}>
                     <div className="ls-main-title">
-                        あらすじ
+                        まえがき
                     </div>
                     <div className="ls-main-loading-text" style={{height: `calc(100% - 70px)`}}>
                         {loading &&
