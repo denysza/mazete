@@ -155,7 +155,8 @@ function Talk() {
     }
 
     const handleGoback = () =>{
-        if(renderIndex.current===0)
+        console.log()
+        if(renderIndex===0)
             navigate("/synopsis",{state: {}})
         if(renderIndex!=0 && !rendering){
             setIndex(renderIndex-1);
