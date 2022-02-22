@@ -25,7 +25,7 @@ function Talk() {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(true);
     const [data, setData] = useState(null);
-    const [renderIndex, _setIndex] = useState(0);
+    const [renderIndex, setIndex] = useState(0);
     const [position, setPosition] = useState(null);
     const [avatar, setAvatar] = useState(null);
     const [renderText, setRenderText] = useState([]);
@@ -35,12 +35,12 @@ function Talk() {
     const [width, height] = useWindowSize();
 
     let {story_id} = useParams();
-    const myStateRef = React.useRef(renderIndex);
+    // const myStateRef = React.useRef(renderIndex);
 
-    const setIndex = data => {
-        myStateRef.current = data;
-        _setIndex(data);
-    };
+    // const setIndex = data => {
+    //     myStateRef.current = data;
+    //     _setIndex(data);
+    // };
     // let vh = window.innerHeight;
 
     useEffect(() => {
@@ -85,8 +85,8 @@ function Talk() {
             });
         });
 
-        window.history.pushState(null, null, window.location.pathname);
-        window.addEventListener('popstate', onBackButtonEvent);
+        // window.history.pushState(null, null, window.location.pathname);
+        // window.addEventListener('popstate', onBackButtonEvent);
     }, []);
 
     const onBackButtonEvent = (e) => {
@@ -155,10 +155,10 @@ function Talk() {
     }
 
     const handleGoback = () =>{
-        if(myStateRef.current===0)
+        if(renderIndex.current===0)
             navigate("/synopsis",{state: {}})
-        if(myStateRef.current!=0 && !rendering){
-            setIndex(0);
+        if(renderIndex!=0 && !rendering){
+            setIndex(renderIndex-1);
             setEnd(false)
         }
     }
