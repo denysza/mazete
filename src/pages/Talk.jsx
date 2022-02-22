@@ -1,4 +1,4 @@
-import { useState, useEffect, useLayoutEffect} from 'react';
+import React, { useState, useEffect, useLayoutEffect} from 'react';
 import { useParams } from "react-router-dom";
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
@@ -25,7 +25,7 @@ function Talk() {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(true);
     const [data, setData] = useState(null);
-    const [renderIndex, setIndex] = useState(0);
+    const [renderIndex, _setIndex] = useState(0);
     const [position, setPosition] = useState(null);
     const [avatar, setAvatar] = useState(null);
     const [renderText, setRenderText] = useState([]);
@@ -35,6 +35,12 @@ function Talk() {
     const [width, height] = useWindowSize();
 
     let {story_id} = useParams();
+    const myStateRef = React.useRef(renderIndex);
+
+    const setIndex = data => {
+        myStateRef.current = data;
+        _setIndex(data);
+    };
     // let vh = window.innerHeight;
 
     useEffect(() => {
@@ -85,9 +91,8 @@ function Talk() {
 
     const onBackButtonEvent = (e) => {
         e.preventDefault();
-        setIndex(0); 
-        setEnd(false);
-        window.history.pushState(null, null, window.location.pathname);
+        window.history.pushState(null, null, window.location.pathname); 
+        handleGoback();
     }
 
     useEffect(() => {
@@ -150,10 +155,9 @@ function Talk() {
     }
 
     const handleGoback = () =>{
-        console.log(renderIndex)
-        if(renderIndex===0)
+        if(myStateRef.current===0)
             navigate("/synopsis",{state: {}})
-        if(renderIndex!=0 && !rendering){
+        if(myStateRef.current!=0 && !rendering){
             setIndex(0);
             setEnd(false)
         }
