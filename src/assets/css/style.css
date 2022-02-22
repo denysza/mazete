@@ -323,7 +323,7 @@ body {
 
 .point-select {
     width: 100%;
-    padding: 25px 20px;
+    padding: 15px 20px;
 }
 
 .point-search {
@@ -447,7 +447,7 @@ body {
     justify-content: center;
     align-items: center;
     width: 100%;
-    height: 85px;
+    height: 65px;
     background-color: white;
 }
 
@@ -887,7 +887,7 @@ body {
 
 @media(max-width: 400px) {
     .point-body {
-        padding: 40px 0 0 12.5px;
+        padding: 10px 0 0 12.5px;
     }
 
     .character-item {
@@ -1062,3 +1062,4 @@ body {
 .MuiAutocomplete-root{
     width: 100% !important;
 }
+
