@@ -46,7 +46,7 @@ function Talk() {
     useEffect(() => {
         // document.getElementById("adventure_state").style.height = vh + "px";
 
-        let register_id =  localStorage.register_id || null;
+        let register_id =  sessionStorage.register_id || null;
         
         let data = JSON.stringify({
             "user_id":register_id,

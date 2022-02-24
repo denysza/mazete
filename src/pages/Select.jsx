@@ -40,32 +40,47 @@ function Top() {
     useEffect(() => {
         let vh = window.innerHeight;
         document.getElementById("character_select").style.height = vh + "px";
+        let register_id =  sessionStorage.register_id || null;
+        let background = sessionStorage.background || null;
+        let user_list = sessionStorage.user_list || null;
+        if(user_list)
+        {
+            setSelectedAvatas(JSON.parse(user_list));
+        } 
+        if(background)
+        {
+            setSelectedArea(JSON.parse(background));
+        }
         
-        let register_id =  uuidv4();
-      
-        var data = JSON.stringify({
-            "register_id":register_id
-        });
-        var config = {
-            method: 'post',
-            url: `${baseurl}/register_id`,
-            headers: { 
-                'Content-Type': 'application/json'
-            },
-                data : data,
-        };
-        axios(config)
-        .then((response) => {
-            localStorage.setItem("register_id", register_id)
-        })
-        .catch((error)=>{
-            navigate("/error",
-                {
-                    state: {
-                        message: "ストーリーの生成に失敗しました。<br/>時間をおいてお試しください"
-                }
-            });
-        })
+        if(!register_id)
+        {
+            register_id =  uuidv4();
+        
+                var data = JSON.stringify({
+                    "register_id":register_id
+                });
+            
+            var config = {
+                method: 'post',
+                url: `${baseurl}/register_id`,
+                headers: { 
+                    'Content-Type': 'application/json'
+                },
+                    data : data,
+            };
+            axios(config)
+            .then((response) => {
+                sessionStorage.setItem("register_id", register_id)
+            })
+            .catch((error)=>{
+                navigate("/error",
+                    {
+                        state: {
+                            message: "ストーリーの生成に失敗しました。<br/>時間をおいてお試しください"
+                    }
+                });
+            })
+        }
 
         let chardata = JSON.stringify({
             "user_id":register_id,
@@ -171,6 +186,9 @@ function Top() {
         {
             setActive(true);
         }
+        else{
+            setActive(false);
+        }
     },[selectedAvatars,selectedArea])
 
     const handleClickAvatar= (index)=>{
@@ -196,7 +214,7 @@ function Top() {
     }
 
     const handleOutline = () => {
-        let register_id =  localStorage.register_id || null;
+        let register_id =  sessionStorage.register_id || null;
         let data = JSON.stringify({
             "user_id":register_id,
             "chosen_chara_ids":selectedAvatars.map(item=>(item.chara_id)).toString(),
@@ -213,10 +231,11 @@ function Top() {
         };
         axios(config)
         .then((response) => {
-            localStorage.setItem("outline_id", response.data.outline_id);
-            localStorage.setItem("background", selectedArea.img_url);
-            localStorage.setItem("user_list",JSON.stringify(selectedAvatars.map((avatar)=>(avatar.img_url))));
-            window.location.assign('/synopsis')
+            sessionStorage.setItem("outline_id", response.data.outline_id);
+            sessionStorage.setItem("background", JSON.stringify(selectedArea));
+            sessionStorage.setItem("user_list", JSON.stringify(selectedAvatars));
+            sessionStorage.removeItem("outline_data")
+            navigate(`/synopsis`,{state: {}})
         })
         .catch((error)=>{
             navigate("/error",
@@ -230,7 +249,7 @@ function Top() {
 
     const handleSubmit = (e)=>{
         e.preventDefault();
-        let register_id =  localStorage.register_id || null;
+        let register_id =  sessionStorage.register_id || null;
         let search_query = value;
         let chosen_chara_ids = selectedAvatars.map(item=>(item.chara_id)).toString();
         let chosen_world_ids = "";
