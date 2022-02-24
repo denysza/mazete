@@ -155,13 +155,20 @@ function Talk() {
     }
 
     const handleGoback = () =>{
-        console.log()
         if(renderIndex===0)
             navigate("/synopsis",{state: {}})
         if(renderIndex!=0 && !rendering){
             setIndex(renderIndex-1);
             setEnd(false)
         }
+    }
+
+    const handleTop = (e) =>{
+        e.preventDefault();
+        sessionStorage.removeItem("outline_id");
+        sessionStorage.removeItem("background");
+        sessionStorage.removeItem("user_list");
+        navigate("/",{state: {}})
     }
 
     return(
@@ -199,7 +206,7 @@ function Talk() {
                         {multiple && <a className="next-btn active">選択して下さい&nbsp;&nbsp;▶</a>}
                     </div>} */}
                     {end && <div className="text-select-btn-group">
-                        <a onClick={()=>{setIndex(0); setEnd(false)}} className="final-btn">トップへ</a>
+                        <a onClick={handleTop} className="final-btn">トップへ</a>
                         <a className="final-btn">シェア</a>
                     </div>}
                 </div>
