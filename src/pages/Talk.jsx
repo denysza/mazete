@@ -193,7 +193,7 @@ function Talk() {
                         </div>
                         <div className="as-text">
                             {renderText.map((item,index)=>(
-                                <div key={index} className={`as-text-wrap ${multiple?"":"arrow"}`} onClick={()=>{selectText(item)}}>
+                                <div key={index} className={`as-text-wrap ${rendering || multiple || end ? "" : "arrow"}`} onClick={()=>{selectText(item)}}>
                                     {item}
                                 </div>
                             ))}
@@ -207,7 +207,7 @@ function Talk() {
                     </div>} */}
                     {end && <div className="text-select-btn-group">
                         <a onClick={handleTop} className="final-btn">トップへ</a>
-                        <a className="final-btn">シェア</a>
+                        {/* <a className="final-btn">シェア</a> */}
                     </div>}
                 </div>
             }

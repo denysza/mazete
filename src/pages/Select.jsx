@@ -22,6 +22,11 @@ function useWindowSize() {
     return size;
 }
 
+const placeholder = [
+    "キャラ名または作品名でさがす",
+    "場面名または作品名でさがす"
+]
+
 function Top() {
     const navigate = useNavigate();
     const location = useLocation();
@@ -384,7 +389,7 @@ function Top() {
                                 return option.label;
                             }}
                             renderOption={(props, option) => <li {...props} >{option.label}</li>}
-                            renderInput={(params) => <TextField {...params} label="" />}
+                            renderInput={(params) => <TextField {...params} label="" placeholder={placeholder[tab - 1]} />}
                         />
                         <button className="search-btn">
                             <img src="/assets/image/point-search.png" alt=""/>

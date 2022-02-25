@@ -121,7 +121,7 @@ function Synopsis() {
         <div className="container" id="loading_synposis">
             <div className="container-wrap">
                 <div className={`ls-top ${editable?"editing" : ""}`} >
-                    <div className="" style={{backgroundImage:`url(${background?.img_url}`, backgroundRepeat: 'no-repeat', backgroundSize: 'cover', backgroundPosition:"center"}}>
+                    <div className="" style={{backgroundImage:`url(${background?.img_url}`, backgroundRepeat: 'no-repeat', backgroundSize: 'cover', backgroundPosition:"center", width:"100%"}}>
                         <div className="ls-top-body">
                             {userdata.map((item,index)=>(
                                 <div key={index} className="ls-top-item" style={{backgroundImage:`url(${item?.img_url})`}}>
