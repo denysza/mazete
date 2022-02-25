@@ -1063,3 +1063,7 @@ body {
     width: 100% !important;
 }
 
+.MuiIconButton-root{
+    display: none !important;
+}
+
