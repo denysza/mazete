@@ -337,7 +337,7 @@ function Top() {
                     <div className="point-intro">
                         画像はBingの検索結果をもとに表示しています
                     </div>
-                    <div className="point-body" style={{height: `calc(${height}px - 420px)`}}>
+                    <div className="point-body" style={{height: `calc(${height}px - 340px)`}}>
                         {
                             tab===1
                             && <div className="point-body-wrap">
@@ -366,9 +366,7 @@ function Top() {
                     </div>
                 </div>
             </div>
-            <div className="character-add-btn-part">
-                <button onClick={handleOutline} className={`character-add-btn ${active ? "active" : ""}`} disabled={!active}>マぜる</button>
-            </div>
+            <button onClick={handleOutline} className={`character-add-btn ${active ? "active" : ""}`} disabled={!active}><img src="/assets/image/imgpsh_fullsize_anim.png" alt=""/>マぜる</button>
         </div>
     )
 }

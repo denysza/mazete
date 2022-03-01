@@ -365,7 +365,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 20px 0 0 10px;
+    padding: 20px 0 0 0;
     position: relative;
 }
 
@@ -383,18 +383,22 @@ body {
 }
 
 .character-item {
-    width: 80px;
-    height: 80px;
+    width: 92px;
+    height: 92px;
     display: inline-block;
     overflow: hidden;
     backdrop-filter: blur(30px);
     border: solid 1px #707070;
     border-radius: 4px;
-    margin: 0 10px 10px 0;
+    margin: 0 2px 2px 0;
     position: relative;
     cursor: pointer;
-    background-position: center;
+    background-position: top center;
     background-size: cover;
+}
+
+.character-item:nth-child(4n) {
+    margin-right: 0;
 }
 
 .character-item span {
@@ -440,22 +444,14 @@ body {
     display: block;
 }
 
-.character-add-btn-part {
-    position: absolute;
-    bottom: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 85px;
-    background-color: white;
-}
-
 .character-add-btn {
-    padding: 5px 10px;
+    position: absolute;
+    bottom: 30px;
+    right: 30px;
+    padding: 5px 20px;
     height: 45px;
+    border: 2px solid white;
     background-color: #8f8f8f;
-    border: 2px solid #8f8f8f;
     border-radius: 48px;
     color: white;
     font-size: 17px;
@@ -465,29 +461,32 @@ body {
     white-space: nowrap;
 }
 
-.character-add-btn.active:hover {
-    background-color: transparent;
-    color: #21335b;
+.character-add-btn img {
+    height: 26px;
+    width: auto;
 }
 
 .character-add-btn.active{
     background-color: #21335b;
-    border: 2px solid #21335b;
 }
 
 .location-item {
-    width: 110px;
-    height: 75px;
+    width: 123px;
+    height: 83px;
     display: inline-block;
     overflow: hidden;
     backdrop-filter: blur(30px);
     border: solid 1px #707070;
     border-radius: 4px;
-    margin: 0 8px 10px 0;
+    margin: 0 2.5px 3px 0;
     position: relative;
     cursor: pointer;
     background-position: center;
     background-size: cover;
+}
+
+.location-item:nth-child(3n) {
+    margin-right: 0;
 }
 
 .location-item span {
@@ -551,7 +550,6 @@ body {
 .ls-top-wrap {
     width: 270px;
     height: 100%;
-    padding: 0 10px;
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
@@ -566,8 +564,8 @@ body {
 }
 
 .ls-top-item {
-    width: 128px;
-    height: 128px;
+    width: 80px;
+    height: 80px;
     margin: 0 5px;
     display: flex;
     justify-content: center;
@@ -885,19 +883,31 @@ body {
     font-family: "HGPSoeiKakugothicUB";
 }
 
-@media(max-width: 400px) {
-    .point-body {
-        padding: 40px 0 0 12.5px;
-    }
-
+@media(max-width: 413px) {
     .character-item {
-        width: 70px;
-        height: 70px;
+        width: 24%;
+        height: 21.6vw;
+        margin: 0 1.3333333333333333% 5px 0;
     }
 
     .location-item {
-        width: 99px;
-        height: 66px;
+        width: 32%;
+        height: 20vw;
+        margin: 0 2% 7px 0;
+    }
+}
+
+@media(max-width: 400px) {
+    .character-item {
+        width: 24%;
+        height: 21.6vw;
+        margin: 0 1.3333333333333333% 5px 0;
+    }
+
+    .location-item {
+        width: 32%;
+        height: 20vw;
+        margin: 0 2% 7px 0;
     }
 }
 
@@ -920,22 +930,6 @@ body {
 
     .as-thumb-character.rb {
         width: 160px;
-    }
-}
-
-@media(max-width: 374px) {
-    .point-body {
-        padding: 40px 0 0 11px;
-    }
-
-    .character-item {
-        width: 67px;
-        height: 67px;
-    }
-
-    .location-item {
-        width: 95px;
-        height: 64px;
     }
 }
 
@@ -962,6 +956,15 @@ body {
 
     .ls-top {
         height: 140px;
+    }
+
+    .ls-top-wrap {
+        width: 210px;
+    }
+
+    .ls-top-item {
+        width: 60px;
+        height: 60px;
     }
 
     .ls-top.editing {
@@ -1004,20 +1007,6 @@ body {
 
     .next-btn {
         font-size: 20px;
-    }
-
-    .point-body {
-        padding: 40px 0 0 10px;
-    }
-
-    .character-item {
-        width: 57px;
-        height: 57px;
-    }
-
-    .location-item {
-        width: 82px;
-        height: 55px;
     }
 }
 
