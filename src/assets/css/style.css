@@ -323,7 +323,7 @@ body {
 
 .point-select {
     width: 100%;
-    padding: 15px 20px;
+    padding: 15px 20px 0px 20px;
 }
 
 .point-search {
@@ -446,7 +446,7 @@ body {
 
 .character-add-btn {
     position: absolute;
-    bottom: 30px;
+    bottom: 15px;
     right: 30px;
     padding: 5px 20px;
     height: 45px;

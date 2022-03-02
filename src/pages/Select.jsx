@@ -399,7 +399,7 @@ function Top() {
                     <div className="point-intro">
                         画像はBingの検索結果をもとに表示しています
                     </div>
-                    <div className="point-body" style={{height: `calc(${height}px - 340px)`}}>
+                    <div className="point-body" style={{height: `calc(${height}px - 295px)`}}>
                         {
                             tab===1
                             && <div className="point-body-wrap">
