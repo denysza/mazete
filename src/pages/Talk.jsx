@@ -171,6 +171,76 @@ function Talk() {
         navigate("/",{state: {}})
     }
 
+    const handleRestStory = (text) => {
+        let register_id =  sessionStorage.register_id || null;
+        
+        setLoading(true)
+        let postdata = JSON.stringify({
+            "user_id":register_id,
+            "story_id":story_id,
+            'chosen_content':text
+        });
+        let config = {
+            method: 'post',
+            url: `${baseurl}/generate_rest_story`,
+            headers: { 
+                'Content-Type': 'application/json'
+            },
+                data : postdata,
+        };
+        axios(config)
+        .then((response) => {
+            let rest_story_id = response.data.story_id;
+              let postdata = JSON.stringify({
+                "user_id":register_id,
+                "story_id":rest_story_id,
+            });
+            let config = {
+                method: 'post',
+                url: `${baseurl}/get_rest_story`,
+                headers: { 
+                    'Content-Type': 'application/json'
+                },
+                    data : postdata,
+            };
+            axios(config)
+            .then((response) => {
+                setLoading(false);
+                
+                if(response.data.generated && !response.data.error){
+                    console.log(data.story, renderIndex, data.story.length)
+                    data.story.splice(renderIndex + 1, data.story.length - renderIndex - 1)
+                    data.story =  data.story.concat(response.data.story)
+                    setData(data)
+                    selectText(text)
+                }
+                else{
+                    navigate("/error",
+                        {
+                            state: {
+                                message: "ストーリーの生成に失敗しました。<br/>時間をおいてお試しください"
+                        }
+                    });
+                }
+            })
+            .catch((error)=>{
+                navigate("/error",
+                    {
+                        state: {
+                            message: "ストーリーの生成に失敗しました。<br/>時間をおいてお試しください"
+                    }
+                });
+            });
+        })
+        .catch((error)=>{
+            navigate("/error",
+                {
+                    state: {
+                        message: "ストーリーの生成に失敗しました。<br/>時間をおいてお試しください"
+                }
+            });
+        });
+    }
     return(
         <>
             {loading && 
@@ -193,7 +263,7 @@ function Talk() {
                         </div>
                         <div className="as-text">
                             {renderText.map((item,index)=>(
-                                <div key={index} className={`as-text-wrap ${rendering || multiple || end ? "" : "arrow"}`} onClick={()=>{selectText(item)}}>
+                                <div key={index} className={`as-text-wrap ${rendering || multiple || end ? "" : "arrow"}`} style={{minHeight:`${multiple?"unset":"80px"}`}} onClick={()=>{handleRestStory(item)}}>
                                     {item}
                                 </div>
                             ))}
