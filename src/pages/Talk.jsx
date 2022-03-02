@@ -1,4 +1,4 @@
-import { useState, useEffect, useLayoutEffect} from 'react';
+import React, { useState, useEffect, useLayoutEffect} from 'react';
 import { useParams } from "react-router-dom";
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
@@ -35,12 +35,18 @@ function Talk() {
     const [width, height] = useWindowSize();
 
     let {story_id} = useParams();
+    // const myStateRef = React.useRef(renderIndex);
+
+    // const setIndex = data => {
+    //     myStateRef.current = data;
+    //     _setIndex(data);
+    // };
     // let vh = window.innerHeight;
 
     useEffect(() => {
         // document.getElementById("adventure_state").style.height = vh + "px";
 
-        let register_id =  localStorage.register_id || null;
+        let register_id =  sessionStorage.register_id || null;
         
         let data = JSON.stringify({
             "user_id":register_id,
@@ -77,8 +83,17 @@ function Talk() {
                         message: "ストーリーの生成に失敗しました。<br/>時間をおいてお試しください"
                 }
             });
-        })
-    }, [])
+        });
+
+        // window.history.pushState(null, null, window.location.pathname);
+        // window.addEventListener('popstate', onBackButtonEvent);
+    }, []);
+
+    const onBackButtonEvent = (e) => {
+        e.preventDefault();
+        window.history.pushState(null, null, window.location.pathname); 
+        handleGoback();
+    }
 
     useEffect(() => {
         if(data){
@@ -140,13 +155,20 @@ function Talk() {
     }
 
     const handleGoback = () =>{
-        console.log(renderIndex)
         if(renderIndex===0)
             navigate("/synopsis",{state: {}})
         if(renderIndex!=0 && !rendering){
-            setIndex(renderIndex - 1);
+            setIndex(renderIndex-1);
             setEnd(false)
         }
+    }
+
+    const handleTop = (e) =>{
+        e.preventDefault();
+        sessionStorage.removeItem("outline_id");
+        sessionStorage.removeItem("background");
+        sessionStorage.removeItem("user_list");
+        navigate("/",{state: {}})
     }
 
     return(
@@ -159,7 +181,7 @@ function Talk() {
                             <span>準備中</span>
                         </div>
                     </div>
-                    <button className="back-to-btn" onClick={handleGoback}><img src="/assets/image/back-to-img.svg" alt="" /></button>
+                    {/* <button className="back-to-btn" onClick={handleGoback}><img src="/assets/image/back-to-img.svg" alt="" /></button> */}
                 </div>
             }
             {
@@ -171,21 +193,21 @@ function Talk() {
                         </div>
                         <div className="as-text">
                             {renderText.map((item,index)=>(
-                                <div key={index} className="as-text-wrap" onClick={()=>{selectText(item)}}>
+                                <div key={index} className={`as-text-wrap ${rendering || multiple || end ? "" : "arrow"}`} onClick={()=>{selectText(item)}}>
                                     {item}
                                 </div>
                             ))}
                             
                         </div>
                     </div>
-                    <button className="back-to-btn" onClick={handleGoback}><img src="/assets/image/back-to-img.png" alt="" /></button>
+                    <button className="back-to-btn" onClick={handleGoback}><img src={renderIndex==0 ? "/assets/image/back-to-img.png" : "/assets/image/back.png"} alt="" /></button>
                     {/* {!end && <div className="text-select-btn-group">
                         {!multiple && <a className="next-btn">タップして次へ&nbsp;&nbsp;▶</a>}
                         {multiple && <a className="next-btn active">選択して下さい&nbsp;&nbsp;▶</a>}
                     </div>} */}
                     {end && <div className="text-select-btn-group">
-                        <a href="" className="final-btn">トップへ</a>
-                        <a href="" className="final-btn">シェア</a>
+                        <a onClick={handleTop} className="final-btn">トップへ</a>
+                        {/* <a className="final-btn">シェア</a> */}
                     </div>}
                 </div>
             }

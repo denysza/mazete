@@ -323,7 +323,7 @@ body {
 
 .point-select {
     width: 100%;
-    padding: 25px 20px;
+    padding: 15px 20px;
 }
 
 .point-search {
@@ -803,7 +803,7 @@ body {
     position: relative;
 }
 
-.as-text-wrap::after {
+.arrow::after {
     content: "";
     position: absolute;
     bottom: 5px;
@@ -1051,3 +1051,8 @@ body {
 .MuiAutocomplete-root{
     width: 100% !important;
 }
+
+.MuiIconButton-root{
+    display: none !important;
+}
+
