@@ -24,9 +24,15 @@ function Synopsis() {
     const [data, setData] = useState("")
     const [userdata,setUserData] = useState([]);
     const [background, setBackground] = useState(null);
+    const [textheight, setheight] = useState(10);
     const [width, height] = useWindowSize();
-    
+ 
+    useEffect(()=>{
+        let textheight = focusText?.current?.scrollHeight+"px";
+        setheight(textheight)
+    },[data])
     useEffect(() => {
+        
         let vh = window.innerHeight;
         document.getElementById("loading_synposis").style.height = vh + "px";
         let register_id =  sessionStorage.register_id || null;
@@ -83,6 +89,7 @@ function Synopsis() {
         }
     }, [])
 
+
     const handleTalk = () => {
         let register_id =  sessionStorage.register_id || null;
         let outline_id = sessionStorage.outline_id || null;
@@ -130,11 +137,11 @@ function Synopsis() {
                         </div>
                     </div>
                 </div>
-                <div className="ls-main" style={{height: `calc(${height}px - 280px)`}}>
+                <div className="ls-main">
                     <div className="ls-main-title">
                         まえがき
                     </div>
-                    <div className="ls-main-loading-text" style={{height: `calc(100% - 70px)`}}>
+                    <div className="ls-main-loading-text">
                         {loading &&
                             <div className="ls-main-loading-part">
                                 <img src="/assets/image/white-loading.gif" alt=""/>
@@ -142,15 +149,16 @@ function Synopsis() {
                             </div>
                         }
                         {!loading &&
-                            <textarea  ref={focusText} className="ls-main-loading-wrap" value={data} disabled={!editable} onChange={(event)=>{setData(event.target.value)}} onBlur={()=>{setEditable(false)}}/>
+                            <textarea  style={{height:textheight}}  ref={focusText} className="ls-main-loading-wrap"  value={data} disabled={!editable} onChange={(event)=>{setData(event.target.value)}} onBlur={()=>{setEditable(false)}}/>
                         }
                     </div>
                     {!editable && <a className="ls-main-edit-btn" onClick={()=>{focusText.current.focus();setEditable(true)}}><span>編集</span><img src="/assets/image/edit-icon.png" alt=""/></a>
                     }
+                     {!editable && <div className="ls-main-making-btn-part"><button onClick={handleTalk}  className={loading ? "ls-main-making-btn" : "ls-main-making-btn active"} disabled={loading}>この世界線に入る</button></div>}
                 </div>
             </div>
             {!editable && <button className="back-to-btn" onClick={()=>{let user_list = sessionStorage.user_list || null; navigate("/",{state: {user_list:user_list}})}}><img src="/assets/image/back-to-img.png" alt="" /></button>}
-            {!editable && <div className="ls-main-making-btn-part"><button onClick={handleTalk}  className={loading ? "ls-main-making-btn" : "ls-main-making-btn active"} disabled={loading}>この世界線に入る</button></div>}
+           
         </div>
     )
 }

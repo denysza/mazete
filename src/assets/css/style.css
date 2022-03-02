@@ -623,11 +623,10 @@ body {
 .ls-main-loading-wrap {
     width: 100%;
     height: 100%;
-    overflow-y: scroll;
+    
     font-size: 20px;
     line-height: 1.35;
     color: #000;
-    min-height: 165px;
 }
 
 .ls-main-loading-wrap::-webkit-scrollbar {
@@ -659,8 +658,6 @@ body {
 }
 
 .ls-main-making-btn-part {
-    position: absolute;
-    bottom: 0;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -971,13 +968,12 @@ body {
         height: 100px;
     }
 
-    .ls-main {
+    /* .ls-main {
         height: calc(100vh - 140px);
-    }
+    } */
 
     .ls-main-loading-wrap {
         font-size: 17px;
-        height: 200px;
         margin-bottom: 20px;
     }
     

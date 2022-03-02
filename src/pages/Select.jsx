@@ -199,7 +199,7 @@ function Top() {
     const handleClickAvatar= (index)=>{
         let arvatars = selectedAvatars
         let indexavatar = characterList.filter(item=>(item.chara_id==index))[0]
-        if(arvatars.map(item=>(item.chara_id)).includes(index)){
+        if(arvatars?.map(item=>(item.chara_id)).includes(index)){
             for( let i = 0; i < arvatars.length; i++){ 
                                    
                 if ( arvatars[i].chara_id === index) { 
@@ -340,7 +340,7 @@ function Top() {
                 <div className="preview">
                     <div className="preview-part" onClick={()=>{setTab(1);setAutoList(charaAutoList); setValue(null)}}>
                         <div className="preview-img-part">
-                            {selectedAvatars.map((avatar)=>(<div key={avatar.chara_id} style={{backgroundImage:`url(${avatar.img_url})`}} className="avatar-preview"><div className="avatar-preview-close" onClick={handleUnselectAvartar(avatar.chara_id)}><span></span><span></span></div></div>))}
+                            {selectedAvatars?.map((avatar)=>(<div key={avatar.chara_id} style={{backgroundImage:`url(${avatar.img_url})`}} className="avatar-preview"><div className="avatar-preview-close" onClick={handleUnselectAvartar(avatar.chara_id)}><span></span><span></span></div></div>))}
                             {selectedAvatars.length==0 && <div className="avatar-preview" style={{backgroundImage:`url(/assets/image/default-avatar.png)`}}></div>}
                         </div>
                         <div className={tab===1 ? "preview-title-part active" : "preview-title-part"}>
@@ -404,7 +404,7 @@ function Top() {
                             tab===1
                             && <div className="point-body-wrap">
                                 {
-                                    characterList.map((image, index)=>(
+                                    characterList?.map((image, index)=>(
                                        
                                         <div style={{backgroundImage:`url(${image.img_url})`}} onClick={()=>handleClickAvatar(image.chara_id)} key={index} className={`${selectedAvatars.map(item=>(item.chara_id)).includes(image.chara_id) ? "active" : ""} character-item`}>
                                             <span></span>
@@ -417,7 +417,7 @@ function Top() {
                             tab==2 &&
                             <div className="point-body-wrap">
                                 {
-                                    worldList.map((area, index)=>(
+                                    worldList?.map((area, index)=>(
                                         <div style={{backgroundImage:`url(${area.img_url})`}} key={index} className={`${selectedArea?.img_url==area.img_url? "active" : ""} location-item`} onClick={(e)=>{setSelectedArea(area)}}>
                                             <span></span>
                                         </div>
