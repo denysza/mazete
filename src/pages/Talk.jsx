@@ -62,10 +62,22 @@ function Talk() {
         };
         axios(config)
         .then((response) => {
-            setLoading(false);
             if(response.data.generated && !response.data.error){
-                setLoading(false);
                 setData(response.data);
+                var imgcount =  response.data.story.length;
+                var readimgcount = 0;
+                response.data.story.forEach(item=>{
+                   
+                        var img = new Image();
+                        img.onload = function() {
+                            readimgcount++;
+                            if(imgcount==readimgcount)
+                            {
+                                setLoading(false);
+                            }
+                        }
+                        img.src = item.chara_img_url;            
+                })
             }
             else{
                 navigate("/error",
@@ -206,14 +218,26 @@ function Talk() {
             };
             axios(config)
             .then((response) => {
-                setLoading(false);
-                
                 if(response.data.generated && !response.data.error){
-                    console.log(data.story, renderIndex, data.story.length)
+                   
                     data.story.splice(renderIndex + 1, data.story.length - renderIndex - 1)
                     data.story =  data.story.concat(response.data.story)
                     setData(data)
                     selectText(text)
+                    var imgcount =  response.data.story.length;
+                    var readimgcount = 0;
+                    response.data.story.forEach(item=>{
+                    
+                            var img = new Image();
+                            img.onload = function() {
+                                readimgcount++;
+                                if(imgcount==readimgcount)
+                                {
+                                    setLoading(false);
+                                }
+                            }
+                            img.src = item.chara_img_url;            
+                    })
                 }
                 else{
                     navigate("/error",
