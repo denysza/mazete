@@ -24,6 +24,7 @@ function useWindowSize() {
 function Talk() {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(true);
+    const [imagelist, setImagelist] = useState(true);
     const [data, setData] = useState(null);
     const [renderIndex, setIndex] = useState(0);
     const [position, setPosition] = useState(null);
@@ -64,20 +65,14 @@ function Talk() {
         .then((response) => {
             if(response.data.generated && !response.data.error){
                 setData(response.data);
-                var imgcount =  response.data.story.length;
-                var readimgcount = 0;
-                response.data.story.forEach(item=>{
-                   
-                        var img = new Image();
-                        img.onload = function() {
-                            readimgcount++;
-                            if(imgcount==readimgcount)
-                            {
-                                setLoading(false);
-                            }
-                        }
-                        img.src = item.chara_img_url;            
+                let images= response.data.story.map(item=>{
+
+                        const newimg = new Image();
+                        newimg.src = item.chara_img_url;
+                        return newimg;
                 })
+                setImagelist(images)
+                setLoading(false)
             }
             else{
                 navigate("/error",
@@ -224,20 +219,14 @@ function Talk() {
                     data.story =  data.story.concat(response.data.story)
                     setData(data)
                     selectText(text)
-                    var imgcount =  response.data.story.length;
-                    var readimgcount = 0;
-                    response.data.story.forEach(item=>{
-                    
-                            var img = new Image();
-                            img.onload = function() {
-                                readimgcount++;
-                                if(imgcount==readimgcount)
-                                {
-                                    setLoading(false);
-                                }
-                            }
-                            img.src = item.chara_img_url;
+                    let images= response.data.story.map(item=>{
+    
+                            const newimg = new Image();
+                            newimg.src = item.chara_img_url;
+                            return newimg;
                     })
+                    setImagelist(images)
+                    setLoading(false);
                 }
                 else{
                     navigate("/error",
