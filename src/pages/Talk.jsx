@@ -236,7 +236,7 @@ function Talk() {
                                     setLoading(false);
                                 }
                             }
-                            img.src = item.chara_img_url;            
+                            img.src = item.chara_img_url;
                     })
                 }
                 else{
