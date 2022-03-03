@@ -172,6 +172,7 @@ function Talk() {
     }
 
     const handleRestStory = (text) => {
+        if(!multiple) return
         let register_id =  sessionStorage.register_id || null;
         
         setLoading(true)
