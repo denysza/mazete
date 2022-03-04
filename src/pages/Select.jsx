@@ -350,12 +350,15 @@ function Top() {
                         <Autocomplete
                             value={value}
                             onChange={(event, newValue) => {
-                                if (typeof newValue === "string") {
+                                if (typeof newValue == "string") {
                                 setValue(newValue);
                                 } else if (newValue && newValue.inputValue) {
                                 setValue(newValue.inputValue);
-                                } else {
+                                } else if(newValue && newValue.label){
                                     setValue(newValue.label);
+                                }
+                                else{
+                                    setValue(newValue);
                                 }
                             }}
                             filterOptions={(options, params) => {
