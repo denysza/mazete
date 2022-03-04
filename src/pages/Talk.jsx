@@ -35,7 +35,7 @@ function Talk() {
     const [rendering, setRendering] = useState(false);
     const [width, height] = useWindowSize();
 
-    let {story_id} = useParams();
+    let {id} = useParams();
     // const myStateRef = React.useRef(renderIndex);
 
     // const setIndex = data => {
@@ -48,10 +48,10 @@ function Talk() {
         // document.getElementById("adventure_state").style.height = vh + "px";
 
         let register_id =  sessionStorage.register_id || null;
-        
+        console.log(id)
         let data = JSON.stringify({
             "user_id":register_id,
-            "story_id":story_id
+            "story_id":id
         });
         let config = {
             method: 'post',
