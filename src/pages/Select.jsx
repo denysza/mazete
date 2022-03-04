@@ -155,12 +155,6 @@ function Top() {
             setAutoList(response.data.auto_complete)
         })
         .catch((error)=>{
-            // navigate("/error",
-            //     {
-            //         state: {
-            //             message: "ストーリーの生成に失敗しました。<br/>時間をおいてお試しください"
-            //     }
-            // });
         });
         
 
@@ -177,12 +171,6 @@ function Top() {
             setWorldAutoList(response.data.auto_complete)
         })
         .catch((error)=>{
-            // navigate("/error",
-            //     {
-            //         state: {
-            //             message: "ストーリーの生成に失敗しました。<br/>時間をおいてお試しください"
-            //     }
-            // });
         });
     },[]);
 
@@ -363,15 +351,11 @@ function Top() {
                             value={value}
                             onChange={(event, newValue) => {
                                 if (typeof newValue === "string") {
-                                setValue({
-                                    label: newValue
-                                });
+                                setValue(newValue);
                                 } else if (newValue && newValue.inputValue) {
-                                setValue({
-                                    label: newValue.inputValue
-                                });
+                                setValue(newValue.inputValue);
                                 } else {
-                                    setValue(newValue);
+                                    setValue(newValue.label);
                                 }
                             }}
                             filterOptions={(options, params) => {
@@ -389,7 +373,7 @@ function Top() {
                                 return option.label;
                             }}
                             renderOption={(props, option) => <li {...props} >{option.label}</li>}
-                            renderInput={(params) => <TextField {...params} label="" placeholder={placeholder[tab - 1]} />}
+                            renderInput={(params) => <TextField {...params} label="" placeholder={placeholder[tab - 1]} onChange={(event)=>{setValue(event.target.value)}}/>}
                         />
                         <button className="search-btn">
                             <img src="/assets/image/point-search.png" alt=""/>
