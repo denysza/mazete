@@ -31,30 +31,21 @@ function Synopsis() {
         let textheight = focusText?.current?.scrollHeight+"px";
         setheight(textheight)
     },[data])
-    useEffect(() => {
-        
+
+    useEffect(() => {        
         let vh = window.innerHeight;
         document.getElementById("loading_synposis").style.height = vh + "px";
         let register_id =  sessionStorage.register_id || null;
         let outline_id = sessionStorage.outline_id || null;
         let background = sessionStorage.background || null;
-        let user_list = sessionStorage.user_list || null;
+        
         let outline_data = sessionStorage.outline_data || null;
-        if(!user_list || !background){
-            navigate("/",{state: {}})
-        }
-
         setBackground(JSON.parse(background));
-        setUserData(JSON.parse(user_list));
         let data = JSON.stringify({
             "user_id":register_id,
             "outline_id":outline_id
         });
-        if(outline_data){
-            setData(JSON.parse(outline_data));
-            setLoading(false);
-        }
-        else{
+
             let config = {
                 method: 'post',
                 url: `${baseurl}/get_outline`,
@@ -65,9 +56,11 @@ function Synopsis() {
             };
             axios(config)
             .then((response) => {
+                
                 if(response.data.generated && response.data.outline && !response.data.error){
                     setLoading(false);
-                    setData(response.data.outline);
+                    setUserData(response.data.chara_img_urls)
+                    setData(response.data.outline);                    
                 }
                 else{
                     navigate("/error",
@@ -86,7 +79,6 @@ function Synopsis() {
                 }
             });
             })
-        }
     }, [])
 
 
@@ -96,8 +88,7 @@ function Synopsis() {
         sessionStorage.setItem("outline_data", JSON.stringify(data));
         let postdata = JSON.stringify({
             "user_id":register_id,
-            "outline_id":outline_id,
-            "outline":data
+            "outline_id":outline_id
         });
         let config = {
             method: 'post',
@@ -124,6 +115,39 @@ function Synopsis() {
     useEffect(() => {
         if(focusText.current && editable) focusText.current.focus(); 
     }, [editable]);
+
+    const handleUpdateOutline = () =>{
+        setEditable(false);
+        let register_id =  sessionStorage.register_id || null;
+        let outline_id = sessionStorage.outline_id || null;
+        let postdata = JSON.stringify({
+            "user_id":register_id,
+            "outline_id":outline_id,
+            "outline":data
+        });
+        let config = {
+            method: 'post',
+            url: `${baseurl}/update_outline`,
+            headers: { 
+                'Content-Type': 'application/json'
+            },
+                data : postdata,
+        };
+        axios(config)
+        .then((response) => {
+            setUserData(response.data.new_chara_img_urls)
+        })
+        .catch((error)=>{
+            navigate("/error",
+                {
+                    state: {
+                        message: "ストーリーの生成に失敗しました。<br/>時間をおいてお試しください"
+                }
+            });
+        })
+    }
+    
+    
     return(
         <div className="container" id="loading_synposis">
             <div className="container-wrap">
@@ -131,7 +155,7 @@ function Synopsis() {
                     <div className="ls-top-wrap" style={{backgroundImage:`url(${background?.img_url}`, backgroundRepeat: 'no-repeat', backgroundSize: 'cover', backgroundPosition:"center"}}>
                         <div className="ls-top-body">
                             {userdata.map((item,index)=>(
-                                <div key={index} className="ls-top-item" style={{backgroundImage:`url(${item?.img_url})`}}>
+                                <div key={index} className="ls-top-item" style={{backgroundImage:`url(${item})`}}>
                                 </div>
                             ))}
                         </div>
@@ -149,7 +173,7 @@ function Synopsis() {
                             </div>
                         }
                         {!loading &&
-                            <textarea  style={{height:textheight}}  ref={focusText} className="ls-main-loading-wrap"  value={data} disabled={!editable} onChange={(event)=>{setData(event.target.value)}} onBlur={()=>{setEditable(false)}}/>
+                            <textarea  style={{height:textheight}}  ref={focusText} className="ls-main-loading-wrap"  value={data} disabled={!editable} onChange={(event)=>{setData(event.target.value)}} onBlur={handleUpdateOutline}/>
                         }
                     </div>
                     {!editable && <a className="ls-main-edit-btn" onClick={()=>{focusText.current.focus();setEditable(true)}}><span>編集</span><img src="/assets/image/edit-icon.png" alt=""/></a>

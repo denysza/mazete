@@ -47,7 +47,7 @@ function Top() {
         document.getElementById("character_select").style.height = vh + "px";
         let register_id =  sessionStorage.register_id || null;
         let background = sessionStorage.background || null;
-        let user_list = sessionStorage.user_list || null;
+        let user_list = sessionStorage.user_list || null; 
         if(user_list)
         {
             setSelectedAvatas(JSON.parse(user_list));

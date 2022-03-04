@@ -48,7 +48,6 @@ function Talk() {
         // document.getElementById("adventure_state").style.height = vh + "px";
 
         let register_id =  sessionStorage.register_id || null;
-        console.log(id)
         let data = JSON.stringify({
             "user_id":register_id,
             "story_id":id
@@ -66,7 +65,6 @@ function Talk() {
             if(response.data.generated && !response.data.error){
                 setData(response.data);
                 let images= response.data.story.map(item=>{
-
                         const newimg = new Image();
                         newimg.src = item.chara_img_url;
                         return newimg;
@@ -185,7 +183,7 @@ function Talk() {
         setLoading(true)
         let postdata = JSON.stringify({
             "user_id":register_id,
-            "story_id":story_id,
+            "story_id":id,
             'chosen_content':text
         });
         let config = {
