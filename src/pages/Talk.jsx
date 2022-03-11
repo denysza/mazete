@@ -2,8 +2,20 @@ import React, { useState, useEffect, useLayoutEffect} from 'react';
 import { useParams } from "react-router-dom";
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
+import Modal from '@mui/material/Modal';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
 const baseurl = import.meta.env.REACT_APP_API_BASE_URL;
-
+const style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 260,
+    bgcolor: 'background.paper',
+    borderRadius:"10px",
+    p: 4,
+  };
 function sleep(ms) {
     return new Promise(resolve => (setTimeout(resolve, ms)));
 }
@@ -34,15 +46,46 @@ function Talk() {
     const [end, setEnd] = useState(false);
     const [rendering, setRendering] = useState(false);
     const [width, height] = useWindowSize();
-
     let {id} = useParams();
-    // const myStateRef = React.useRef(renderIndex);
+    const [open, setOpen] = useState(false);
 
-    // const setIndex = data => {
-    //     myStateRef.current = data;
-    //     _setIndex(data);
-    // };
-    // let vh = window.innerHeight;
+
+    const handleOpen = () => 
+    {
+        setOpen(true);
+        let register_id =  sessionStorage.register_id || null;
+        let data = JSON.stringify({
+            "user_id":register_id,
+            "story_id":id
+        });
+        let config = {
+            method: 'post',
+            url: `${baseurl}/get_shared_message`,
+            headers: { 
+                'Content-Type': 'application/json'
+            },
+                data : data,
+        };
+        axios(config)
+        .then((response) => {
+            navigate("/movie",
+            {
+                state: {
+                    message: response.data.message,
+                    movie_url:response.data.movie_url
+            }
+        });
+        })
+        .catch((error)=>{
+            navigate("/error",
+                {
+                    state: {
+                        message: "ストーリーの生成に失敗しました。<br/>時間をおいてお試しください"
+                }
+            });
+        });
+    }
+    
 
     useEffect(() => {
         // document.getElementById("adventure_state").style.height = vh + "px";
@@ -116,16 +159,20 @@ function Talk() {
 
     const setTalk=()=>{
         let stroyData = data.story;
-        setAvatar(stroyData[renderIndex].chara_img_url);
-       // setPosition(stroyData[renderIndex].position)
-        if(stroyData[renderIndex].multiple){
-            setMultiple(true);
-            setRenderText(stroyData[renderIndex].content);
+        if(stroyData[renderIndex]){
+            setAvatar(stroyData[renderIndex].chara_img_url);
+           
+            // setPosition(stroyData[renderIndex].position)
+            if(stroyData[renderIndex].multiple){
+                setMultiple(true);
+                setRenderText(stroyData[renderIndex].content);
+            }
+            else{
+                setMultiple(false);
+                renderingText(stroyData[renderIndex].content);
+            }
         }
-        else{
-            setMultiple(false);
-            renderingText(stroyData[renderIndex].content);
-        }
+
     }
 
     const  renderingText = async (text) =>{
@@ -289,10 +336,26 @@ function Talk() {
                     </div>} */}
                     {end && <div className="text-select-btn-group">
                         <a onClick={handleTop} className="final-btn">トップへ</a>
-                        {/* <a className="final-btn">シェア</a> */}
+                        <a className="final-btn" onClick={handleOpen}>シェア</a>
                     </div>}
                 </div>
             }
+
+        <Modal
+            open={open}
+            // onClose={handleClose}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+        >
+            <Box sx={style}>
+                <Box id="modal-modal-title" variant="h6" component="h2" style={{textAlign:"center"}}>
+                    <img src="/assets/image/white-loading.gif" alt=""/>
+                </Box>
+                <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                    シェア用の動画を作成中...
+                </Typography>
+            </Box>
+        </Modal>
         </>
     )
 }
