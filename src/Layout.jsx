@@ -6,6 +6,8 @@ import Synopsis from './pages/Synopsis.jsx';
 import Talk from './pages/Talk.jsx';
 import Error from './pages/Error.jsx';
 import Movie from './pages/Movie.jsx';
+import UploadTwitter from './pages/UploadTwitter.jsx';
+
 function Layout() {
     return(
         <Router>
