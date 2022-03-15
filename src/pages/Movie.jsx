@@ -3,9 +3,9 @@ import axios from 'axios'
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import {useLocation} from 'react-router-dom';
+
 import { saveAs } from 'file-saver';
-import { TwitterShareButton } from "react-share";
+import { useNavigate, useLocation } from "react-router-dom";
 const baseurl = import.meta.env.REACT_APP_API_BASE_URL;
 
 const style = {
@@ -19,6 +19,7 @@ const style = {
     p: 4,
   };
 function Movie() {
+    const navigate = useNavigate();
     const location = useLocation();
     const [open, setOpen] = useState(false);
     const [twittermessage, setTwitterMessage] = useState(location.state.message)
@@ -39,6 +40,40 @@ function Movie() {
                 location.state.movie_url,
                 "video"
             )
+    }
+
+    const handleShareTwitter = (envet) =>{
+        let register_id =  sessionStorage.register_id || null;
+        let data = JSON.stringify({
+            "user_id":register_id,
+            "message":twittermessage,
+            "movie_url":location.state.movie_url
+        });
+        let config = {
+            method: 'post',
+            url: `${baseurl}/get_twitter_authenticate_url`,
+            headers: { 
+                'Content-Type': 'application/json'
+            },
+                data : data,
+        };
+        axios(config)
+        .then((response) => {
+            localStorage.setItem("background",sessionStorage.background);
+            localStorage.setItem("outline_data",sessionStorage.outline_data);
+            localStorage.setItem("outline_id",sessionStorage.outline_id);
+            localStorage.setItem("register_id",sessionStorage.register_id);
+            localStorage.setItem("user_list",sessionStorage.user_list);
+            window.location.href = response.data.authenticate_url;
+        })
+        .catch((error)=>{
+            navigate("/error",
+            {
+                state: {
+                    message: "ストーリーの生成に失敗しました。<br/>時間をおいてお試しください"
+            }
+        });
+        })
     }
 
     return(
@@ -98,14 +133,17 @@ function Movie() {
                         <textarea className='twitter-message' value={twittermessage} onChange={(e)=>{setTwitterMessage(e.target.value)}}></textarea>
                     </Box>
                     <Box display={'flex'} justifyContent={'flex-end'}>
-                        <TwitterShareButton
+                        {/* <TwitterShareButton
                             title={"マゼて"}
                             url={twittermessage?.split("\n")[1]}
                         >                       
-                            <div className="share-btn">
+                            <div className="share-btn" on>
                                     <span>Twitterに投稿</span>
                             </div> 
-                        </TwitterShareButton>
+                        </TwitterShareButton> */}
+                         <div className="share-btn" onClick={handleShareTwitter}>
+                            <span>Twitterに投稿</span>
+                        </div> 
                     </Box>
                 </Box>
             </Modal>

@@ -15,6 +15,7 @@ function Layout() {
                 <Route path="/synopsis" element={<Synopsis/>} />
                 <Route path="/talk/:id" element={<Talk />} />
                 <Route path="/movie" element={<Movie/>}/>
+                <Route path="/upload_twitter" element={<UploadTwitter/>}/>
                 <Route path="/error" element={<Error/>}/>
             </Routes>
         </Router>

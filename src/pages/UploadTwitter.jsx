@@ -1,0 +1,81 @@
+import {useState, useEffect} from 'react'
+import axios from 'axios'
+
+import { useNavigate, useLocation } from "react-router-dom";
+const baseurl = import.meta.env.REACT_APP_API_BASE_URL;
+
+
+function Movie() {
+    const navigate = useNavigate();
+    // const location = useLocation();
+    const [loading, setLoading] = useState(true)
+   
+    useEffect(()=>{
+        (async() => {
+            sessionStorage.setItem("background",localStorage.background);
+            sessionStorage.setItem("outline_data",localStorage.outline_data);
+            sessionStorage.setItem("outline_id",localStorage.outline_id);
+            sessionStorage.setItem("register_id",localStorage.register_id);
+            sessionStorage.setItem("user_list",localStorage.user_list);
+            localStorage.removeItem("background");
+            localStorage.removeItem("outline_data");
+            localStorage.removeItem("outline_id");
+            localStorage.removeItem("register_id");
+            localStorage.removeItem("user_list");
+            const {oauth_token, oauth_verifier} = queryString.parse(window.location.search);  
+            if (oauth_token && oauth_verifier) {
+                let register_id =  sessionStorage.register_id || null; 
+                let data = JSON.stringify({
+                    "user_id":register_id,
+                    "oauth_token":oauth_token,
+                    "oauth_verifier":oauth_verifier
+                });
+                let config = {
+                    method: 'post',
+                    url: `${baseurl}/tweet_movie`,
+                    headers: { 
+                        'Content-Type': 'application/json'
+                    },
+                        data : data,
+                };
+                axios(config)
+                .then((response) => {
+                    sessionStorage.removeItem("outline_id");
+                    sessionStorage.removeItem("background");
+                    sessionStorage.removeItem("user_list");
+                    navigate("/",{state: {}})
+                })
+                .catch((error)=>{
+                    navigate("/error",
+                    {
+                        state: {
+                            message: "ストーリーの生成に失敗しました。<br/>時間をおいてお試しください"
+                        }
+                    });
+                })
+            }
+        })();
+    },[])
+
+
+
+
+
+    return(
+       <>
+            {
+                loading && 
+                    <div className="container" id="loading_adventure">
+                        <div className="container-wrap">
+                            <div className="la-wrap">
+                                <img src="/assets/image/black-loading.gif" alt=""/>
+                                <span>準備中</span>
+                            </div>
+                        </div>
+                        {/* <button className="back-to-btn" onClick={handleGoback}><img src="/assets/image/back-to-img.svg" alt="" /></button> */}
+                    </div>
+            }
+     </>
+    )
+}
+export default Movie;
