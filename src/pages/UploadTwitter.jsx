@@ -43,7 +43,22 @@ function Movie() {
                     sessionStorage.removeItem("outline_id");
                     sessionStorage.removeItem("background");
                     sessionStorage.removeItem("user_list");
-                    navigate("/",{state: {}})
+                    let message = localStorage.message;
+                    let movie_url = localStorage.localStorage;
+                    if(response.data.error)
+                    {
+                        alert("Twitterへの投稿に失敗しました。")
+                       
+                    }
+                    else{
+                        alert("Twitterに投稿しました。")
+                    }
+                    navigate("/movie",{
+                        state: {
+                            message: message,
+                            movie_url:movie_url
+                        }
+                    })
                 })
                 .catch((error)=>{
                     navigate("/error",
