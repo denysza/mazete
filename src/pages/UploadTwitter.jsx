@@ -44,7 +44,7 @@ function Movie() {
                     sessionStorage.removeItem("background");
                     sessionStorage.removeItem("user_list");
                     let message = localStorage.message;
-                    let movie_url = localStorage.localStorage;
+                    let movie_url = localStorage.movie_url;
                     if(response.data.error)
                     {
                         alert("Twitterへの投稿に失敗しました。")

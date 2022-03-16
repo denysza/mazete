@@ -44,7 +44,7 @@ function Movie() {
 
     const handleShareTwitter = (envet) =>{
         let register_id =  sessionStorage.register_id || null;
-       
+        localStorage.setItem("movie_url",location.state.movie_url);
         let data = JSON.stringify({
             "user_id":register_id,
             "message":twittermessage,
