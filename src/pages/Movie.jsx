@@ -79,6 +79,11 @@ function Movie() {
         })
     }
 
+    const handleBack = (event) =>{
+        event.preventDefault();
+        navigate(-1);
+    }
+
     return(
         <div className="container" id="movie">
             <div className="container-wrap">
@@ -115,16 +120,13 @@ function Movie() {
                 <div className="footer_box">
                     <div className="recreate_box">
                         <div id="back_button_footer_talk" onClick={handleTop}>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
-                                <path fill="#999" fillRule="evenodd" d="M10 0c.828 0 1.5.672 1.5 1.5v7h7c.828 0 1.5.672 1.5 1.5s-.672 1.5-1.5 1.5h-7.001l.001 7c0 .828-.672 1.5-1.5 1.5s-1.5-.672-1.5-1.5l-.001-7H1.5C.672 11.5 0 10.828 0 10s.672-1.5 1.5-1.5h7v-7C8.5.672 9.172 0 10 0z"/>
-                            </svg>
-                            <span>もう一度作る</span>
+                            <span>トップへに戻る</span>
                         </div>
                     </div>
                 </div>
             </div>
             </div>
-            <button className="back-to-btn" onClick={()=>{let user_list = sessionStorage.user_list || null; navigate("/",{state: {user_list:user_list}})}}><img src="/assets/image/back-to-img.png" alt="" /></button>
+            <button className="back-to-btn" onClick={handleBack}><img src="/assets/image/back-to-img.png" alt="" /></button>
             <Modal
                 open={open}
                 onClose={handleClose}

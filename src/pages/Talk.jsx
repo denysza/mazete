@@ -137,11 +137,6 @@ function Talk() {
         // window.addEventListener('popstate', onBackButtonEvent);
     }, []);
 
-    const onBackButtonEvent = (e) => {
-        e.preventDefault();
-        window.history.pushState(null, null, window.location.pathname); 
-        handleGoback();
-    }
 
     useEffect(() => {
         if(data){

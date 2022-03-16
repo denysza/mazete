@@ -38,14 +38,15 @@ function Synopsis() {
         let register_id =  sessionStorage.register_id || null;
         let outline_id = sessionStorage.outline_id || null;
         let background = sessionStorage.background || null;
-        
         let outline_data = sessionStorage.outline_data || null;
+        let user_images = sessionStorage.user_images || null;
         setBackground(JSON.parse(background));
         let data = JSON.stringify({
             "user_id":register_id,
             "outline_id":outline_id
         });
-
+        if(!outline_data)
+        {
             let config = {
                 method: 'post',
                 url: `${baseurl}/get_outline`,
@@ -60,7 +61,8 @@ function Synopsis() {
                 if(response.data.generated && response.data.outline && !response.data.error){
                     setLoading(false);
                     setUserData(response.data.chara_img_urls)
-                    setData(response.data.outline);                    
+                    setData(response.data.outline);
+                    sessionStorage.setItem("user_images", JSON.stringify(response.data.chara_img_urls));
                 }
                 else{
                     navigate("/error",
@@ -72,13 +74,19 @@ function Synopsis() {
                 }
             })
             .catch((error)=>{
-                navigate("/error",
-                {
-                    state: {
-                        message: "ストーリーの生成に失敗しました。<br/>時間をおいてお試しください"
-                }
-            });
+                    navigate("/error",
+                        {
+                            state: {
+                                message: "ストーリーの生成に失敗しました。<br/>時間をおいてお試しください"
+                        }
+                    });
             })
+        }
+        else{
+            setLoading(false);
+            setUserData(JSON.parse(user_images))
+            setData(outline_data);
+        }
     }, [])
 
 
@@ -175,6 +183,7 @@ function Synopsis() {
                         {!loading &&
                             <textarea  style={{height:textheight}}  ref={focusText} className="ls-main-loading-wrap"  value={data} disabled={!editable} onChange={(event)=>{setData(event.target.value)}} onBlur={handleUpdateOutline}/>
                         }
+                        {loading && <div className="ls-main-loading-wrap"></div>}
                     </div>
                     {!editable && <a className="ls-main-edit-btn" onClick={()=>{focusText.current.focus();setEditable(true)}}><span>編集</span><img src="/assets/image/edit-icon.png" alt=""/></a>
                     }

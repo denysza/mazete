@@ -9,6 +9,10 @@ const filter = createFilterOptions({
     stringify: (option) => option.kana + option.label
 });
 
+function sleep(ms) {
+    return new Promise(resolve => (setTimeout(resolve, ms)));
+}
+
 function useWindowSize() {
     const [size, setSize] = useState([0, 0]);
     useLayoutEffect(() => {
@@ -42,12 +46,13 @@ function Top() {
     const [value, setValue] = useState(null);
     const [width, height] = useWindowSize();
 
-    useEffect(() => {
+    useEffect(async() => {
         let vh = window.innerHeight;
         document.getElementById("character_select").style.height = vh + "px";
         let register_id =  sessionStorage.register_id || null;
         let background = sessionStorage.background || null;
         let user_list = sessionStorage.user_list || null; 
+        sessionStorage.removeItem("outline_data");
         if(user_list)
         {
             setSelectedAvatas(JSON.parse(user_list));
@@ -85,8 +90,8 @@ function Top() {
                     }
                 });
             })
+            await sleep(1);
         }
-
         let chardata = JSON.stringify({
             "user_id":register_id,
             "search_query":"",
@@ -114,6 +119,7 @@ function Top() {
                 }
             });
         })
+        await sleep(1);
         let worlddata = JSON.stringify({
             "user_id":register_id,
             "search_query":"",
@@ -140,6 +146,7 @@ function Top() {
             }
         });
         })
+        await sleep(1);
 
         let autocomplete_chara_config = {
             method: 'post',
@@ -157,7 +164,7 @@ function Top() {
         .catch((error)=>{
         });
         
-
+        await sleep(1);
         let autocomplete_world_config = {
             method: 'post',
             url: `${baseurl}/get_autocomplete_world`,
