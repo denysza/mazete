@@ -94,7 +94,8 @@ function Talk() {
         let talkdata =  sessionStorage.data || null;
         console.log(talkdata)
         if(talkdata){
-            // setData(JSON.parse(talkdata));
+            setLoading(false)
+            setData(JSON.parse(talkdata));
         }
         else{        
             let data = JSON.stringify({
