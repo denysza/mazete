@@ -91,47 +91,56 @@ function Talk() {
         // document.getElementById("adventure_state").style.height = vh + "px";
 
         let register_id =  sessionStorage.register_id || null;
-        let data = JSON.stringify({
-            "user_id":register_id,
-            "story_id":id
-        });
-        let config = {
-            method: 'post',
-            url: `${baseurl}/get_story`,
-            headers: { 
-                'Content-Type': 'application/json'
-            },
-                data : data,
-        };
-        axios(config)
-        .then((response) => {
-            if(response.data.generated && !response.data.error){
-                setData(response.data);
-                let images= response.data.story.map(item=>{
-                        const newimg = new Image();
-                        newimg.src = item.chara_img_url;
-                        return newimg;
-                })
-                setImagelist(images)
-                setLoading(false)
-            }
-            else{
+        let talkdata =  sessionStorage.data || null;
+        if(talkdata){
+            setData(setUserData(JSON.parse(talkdata)));
+        }
+        else{
+
+        
+            let data = JSON.stringify({
+                "user_id":register_id,
+                "story_id":id
+            });
+            let config = {
+                method: 'post',
+                url: `${baseurl}/get_story`,
+                headers: { 
+                    'Content-Type': 'application/json'
+                },
+                    data : data,
+            };
+            axios(config)
+            .then((response) => {
+                if(response.data.generated && !response.data.error){
+                    setData(response.data);
+                    sessionStorage.setItem("data", response.data)
+                    let images= response.data.story.map(item=>{
+                            const newimg = new Image();
+                            newimg.src = item.chara_img_url;
+                            return newimg;
+                    })
+                    setImagelist(images)
+                    setLoading(false)
+                }
+                else{
+                    navigate("/error",
+                        {
+                            state: {
+                                message: "ストーリーの生成に失敗しました。<br/>時間をおいてお試しください"
+                        }
+                    });
+                }
+            })
+            .catch((error)=>{
                 navigate("/error",
                     {
                         state: {
                             message: "ストーリーの生成に失敗しました。<br/>時間をおいてお試しください"
                     }
                 });
-            }
-        })
-        .catch((error)=>{
-            navigate("/error",
-                {
-                    state: {
-                        message: "ストーリーの生成に失敗しました。<br/>時間をおいてお試しください"
-                }
             });
-        });
+        }
 
         // window.history.pushState(null, null, window.location.pathname);
         // window.addEventListener('popstate', onBackButtonEvent);
@@ -203,6 +212,7 @@ function Talk() {
 
     const handleGoback = () =>{
         if(renderIndex===0)
+            sessionStorage.removeItem("data");
             navigate("/synopsis",{state: {}})
         if(renderIndex!=0 && !rendering){
             setIndex(renderIndex-1);
@@ -215,6 +225,7 @@ function Talk() {
         sessionStorage.removeItem("outline_id");
         sessionStorage.removeItem("background");
         sessionStorage.removeItem("user_list");
+        sessionStorage.removeItem("data");
         navigate("/",{state: {}})
     }
 
@@ -258,6 +269,7 @@ function Talk() {
                     data.story.splice(renderIndex + 1, data.story.length - renderIndex - 1)
                     data.story =  data.story.concat(response.data.story)
                     setData(data)
+                    sessionStorage.setItem("data", response.data)
                     selectText(text)
                     let images= response.data.story.map(item=>{
     

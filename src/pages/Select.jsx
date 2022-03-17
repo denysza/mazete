@@ -66,9 +66,9 @@ function Top() {
         {
             register_id =  uuidv4();
         
-                var data = JSON.stringify({
-                    "register_id":register_id
-                });
+            var postdata = JSON.stringify({
+                "register_id":register_id
+            });
             
             var config = {
                 method: 'post',
@@ -76,21 +76,9 @@ function Top() {
                 headers: { 
                     'Content-Type': 'application/json'
                 },
-                    data : data,
+                    data : postdata,
             };
-            axios(config)
-            .then((response) => {
-                sessionStorage.setItem("register_id", register_id)
-            })
-            .catch((error)=>{
-                navigate("/error",
-                    {
-                        state: {
-                            message: "ストーリーの生成に失敗しました。<br/>時間をおいてお試しください"
-                    }
-                });
-            })
-            await sleep(100)
+            const res = await axios(config);        
         }
         let chardata = JSON.stringify({
             "user_id":register_id,
@@ -119,7 +107,6 @@ function Top() {
                 }
             });
         })
-        await sleep(1);
         let worlddata = JSON.stringify({
             "user_id":register_id,
             "search_query":"",
@@ -146,8 +133,6 @@ function Top() {
             }
         });
         })
-        await sleep(1);
-
         let autocomplete_chara_config = {
             method: 'post',
             url: `${baseurl}/get_autocomplete_chara`,
@@ -164,7 +149,6 @@ function Top() {
         .catch((error)=>{
         });
         
-        await sleep(1);
         let autocomplete_world_config = {
             method: 'post',
             url: `${baseurl}/get_autocomplete_world`,
