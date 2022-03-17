@@ -65,7 +65,7 @@ function Top() {
         if(!register_id)
         {
             register_id =  uuidv4();
-        
+            sessionStorage.setItem("register_id",register_id);
             var postdata = JSON.stringify({
                 "register_id":register_id
             });
@@ -78,7 +78,8 @@ function Top() {
                 },
                     data : postdata,
             };
-            const res = await axios(config);        
+
+            const res = await axios(config);
         }
         let chardata = JSON.stringify({
             "user_id":register_id,
