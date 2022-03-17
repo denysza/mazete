@@ -89,15 +89,14 @@ function Talk() {
 
     useEffect(() => {
         // document.getElementById("adventure_state").style.height = vh + "px";
-
+        console.log("asd")
         let register_id =  sessionStorage.register_id || null;
         let talkdata =  sessionStorage.data || null;
+        console.log(talkdata)
         if(talkdata){
-            setData(setUserData(JSON.parse(talkdata)));
+            // setData(JSON.parse(talkdata));
         }
-        else{
-
-        
+        else{        
             let data = JSON.stringify({
                 "user_id":register_id,
                 "story_id":id
@@ -114,7 +113,7 @@ function Talk() {
             .then((response) => {
                 if(response.data.generated && !response.data.error){
                     setData(response.data);
-                    sessionStorage.setItem("data", response.data)
+                    sessionStorage.setItem("data", JSON.stringify(response.data));
                     let images= response.data.story.map(item=>{
                             const newimg = new Image();
                             newimg.src = item.chara_img_url;
@@ -269,7 +268,7 @@ function Talk() {
                     data.story.splice(renderIndex + 1, data.story.length - renderIndex - 1)
                     data.story =  data.story.concat(response.data.story)
                     setData(data)
-                    sessionStorage.setItem("data", response.data)
+                    sessionStorage.setItem("data", JSON.stringify(data));
                     selectText(text)
                     let images= response.data.story.map(item=>{
     
