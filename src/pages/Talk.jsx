@@ -89,7 +89,6 @@ function Talk() {
 
     useEffect(() => {
         // document.getElementById("adventure_state").style.height = vh + "px";
-        console.log("asd")
         let register_id =  sessionStorage.register_id || null;
         let talkdata =  sessionStorage.data || null;
         console.log(talkdata)
@@ -310,7 +309,7 @@ function Talk() {
     return(
         <>
             {loading && 
-                <div className="container" id="loading_adventure">
+                <div className="container" id="loading_adventure" >
                     <div className="container-wrap">
                         <div className="la-wrap">
                             <img src="/assets/image/black-loading.gif" alt=""/>
@@ -322,7 +321,7 @@ function Talk() {
             }
             {
                 !loading &&
-                <div className="container" id="adventure_state" style={{height: height}}>
+                <div className="container" id="adventure_state" style={{height:`${height}px`}}>
                     <div className="container-wrap" onClick={handleNext}>
                         <div className="as-thumb" style={{backgroundImage:`url(${data?.background_url})`}}>
                             {avatar && <img src={avatar} alt="" className={`as-thumb-character ${position==0 ? 'lb': position==1 ? 'mb' : 'rb'}`}/>}

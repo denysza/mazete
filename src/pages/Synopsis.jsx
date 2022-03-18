@@ -33,8 +33,8 @@ function Synopsis() {
     },[data])
 
     useEffect(() => {        
-        let vh = window.innerHeight;
-        document.getElementById("loading_synposis").style.height = vh + "px";
+        // let vh = window.innerHeight;
+        // document.getElementById("loading_synposis").style.height = vh + "px";
         let register_id =  sessionStorage.register_id || null;
         let outline_id = sessionStorage.outline_id || null;
         let background = sessionStorage.background || null;
@@ -157,7 +157,7 @@ function Synopsis() {
     
     
     return(
-        <div className="container" id="loading_synposis">
+        <div className="container" id="loading_synposis" style={{height:`${height}px`}}>
             <div className="container-wrap">
                 <div className={`ls-top ${editable?"editing" : ""}`} >
                     <div className="ls-top-wrap" style={{backgroundImage:`url(${background?.img_url}`, backgroundRepeat: 'no-repeat', backgroundSize: 'cover', backgroundPosition:"center"}}>
