@@ -47,8 +47,8 @@ function Top() {
     const [width, height] = useWindowSize();
 
     useEffect(async() => {
-        let vh = window.innerHeight;
-        document.getElementById("character_select").style.height = vh + "px";
+        // let vh = window.innerHeight;
+        // document.getElementById("character_select").style.height = vh + "px";
         let register_id =  sessionStorage.register_id || null;
         let background = sessionStorage.background || null;
         let user_list = sessionStorage.user_list || null; 

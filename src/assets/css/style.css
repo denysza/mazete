@@ -86,6 +86,7 @@ body {
     position: relative;
 }
 
+
 .back-to-btn {
     position: absolute;
     top: 5px;
@@ -1452,4 +1453,8 @@ body {
     border: solid 1px #00b0f0;
     background-color: #fff;
     color: #00b0f0;
+}
+
+#character_select {
+    height: 100vh;
 }
