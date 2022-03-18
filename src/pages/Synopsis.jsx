@@ -93,7 +93,7 @@ function Synopsis() {
     const handleTalk = () => {
         let register_id =  sessionStorage.register_id || null;
         let outline_id = sessionStorage.outline_id || null;
-        sessionStorage.setItem("outline_data", JSON.stringify(data));
+        sessionStorage.setItem("outline_data", data);
         let postdata = JSON.stringify({
             "user_id":register_id,
             "outline_id":outline_id
