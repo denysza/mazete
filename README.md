@@ -4,4 +4,5 @@ run the development server:
 
 ```bash
 npm install
-npm run dev
+npm run build
+sudo cp -r dist/* /var/www/html/
