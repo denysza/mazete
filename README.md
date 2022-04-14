@@ -1,6 +1,6 @@
 # mazete
 
-run the development server:
+run the production server:
 
 ```bash
 npm install
