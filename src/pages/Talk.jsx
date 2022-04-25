@@ -211,8 +211,10 @@ function Talk() {
 
     const handleGoback = () =>{
         if(renderIndex===0)
+        {
             sessionStorage.removeItem("data");
             navigate("/synopsis",{state: {}})
+        }
         if(renderIndex!=0 && !rendering){
             setIndex(renderIndex-1);
             setEnd(false)

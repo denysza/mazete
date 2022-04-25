@@ -37,7 +37,7 @@ function Movie() {
 
     const handleDownload = () =>{
         saveAs(
-                location.state.movie_url,
+                location.state.movie_url.split('/')[location.state.movie_url.split('/').length-1],
                 "video"
             )
     }
@@ -71,11 +71,11 @@ function Movie() {
         })
         .catch((error)=>{
             navigate("/error",
-            {
-                state: {
-                    message: "ストーリーの生成に失敗しました。<br/>時間をおいてお試しください"
-            }
-        });
+                {
+                    state: {
+                        message: "ストーリーの生成に失敗しました。<br/>時間をおいてお試しください"
+                }
+            });
         })
     }
 
@@ -120,7 +120,7 @@ function Movie() {
                 <div className="footer_box">
                     <div className="recreate_box">
                         <div id="back_button_footer_talk" onClick={handleTop}>
-                            <span>トップへに戻る</span>
+                            <span>トップに戻る</span>
                         </div>
                     </div>
                 </div>

@@ -624,10 +624,9 @@ body {
 }
 
 .ls-main-loading-wrap {
-    min-height: calc(100vh - 390px);
+    min-height: calc(100vh - 400px);
     width: 100%;
-    height: 100%;
-    
+    height: 100%;    
     font-size: 20px;
     line-height: 1.35;
     color: #000;
@@ -666,7 +665,7 @@ body {
     justify-content: center;
     align-items: center;
     width: 100%;
-    height: 85px;
+    height: 60px;
 }
 
 .ls-main-making-btn {
