@@ -94,6 +94,7 @@ function Synopsis() {
         let register_id =  sessionStorage.register_id || null;
         let outline_id = sessionStorage.outline_id || null;
         sessionStorage.setItem("outline_data", data);
+        sessionStorage.removeItem("data");
         let postdata = JSON.stringify({
             "user_id":register_id,
             "outline_id":outline_id
