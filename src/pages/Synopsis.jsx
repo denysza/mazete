@@ -28,7 +28,7 @@ function Synopsis() {
     const [width, height] = useWindowSize();
  
     useEffect(()=>{
-        let textheight = focusText?.current?.scrollHeight+"px";
+        let textheight = focusText?.current?.scrollHeight - 130 +"px";
         setheight(textheight)
     },[data])
 
