@@ -218,6 +218,7 @@ function Talk() {
             navigate("/synopsis",{state: {}})
         }
         if(renderIndex!=0 && !rendering){
+            setRenderText([]);
             setIndex(renderIndex-1);
             setEnd(false)
         }
