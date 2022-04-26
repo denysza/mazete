@@ -37,8 +37,8 @@ function Movie() {
 
     const handleDownload = () =>{
         saveAs(
-                location.state.movie_url.split('/')[location.state.movie_url.split('/').length-1],
-                "video"
+                location.state.movie_url,
+                location.state.movie_url.split('/')[location.state.movie_url.split('/').length-1]
             )
     }
 

@@ -1294,7 +1294,7 @@ body {
   .post_box span {
     font-size: 16px;
     color: #ffffff;
-    padding-left: 10px;
+    /* padding-left: 10px; */
   }
   .modal_movie_header {
     border-bottom: 1px solid #f5f5f5;
