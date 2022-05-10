@@ -45,6 +45,8 @@ function Top() {
     const [autoList, setAutoList] = useState([]);
     const [value, setValue] = useState(null);
     const [width, height] = useWindowSize();
+    const [cpage, setCPage] = useState(0);
+    const [wpage, setWPage] = useState(0);
 
     useEffect(async() => {
         // let vh = window.innerHeight;
@@ -85,7 +87,8 @@ function Top() {
             "user_id":register_id,
             "search_query":"",
             "chosen_chara_ids":"",
-            "chosen_world_ids":""
+            "chosen_world_ids":"",
+            "page":cpage
 
         });
         let charconfig = {
@@ -98,6 +101,7 @@ function Top() {
         };
         axios(charconfig)
         .then((response) => {
+            setCPage(response.data.next_page)
             setCharacterList(response.data.chara_list);
         })
         .catch((error)=>{
@@ -112,7 +116,8 @@ function Top() {
             "user_id":register_id,
             "search_query":"",
             "chosen_chara_ids":"",
-            "chosen_world_ids":""
+            "chosen_world_ids":"",
+            "page":wpage
         });
         let worldconfig = {
             method: 'post',
@@ -124,6 +129,7 @@ function Top() {
         };
         axios(worldconfig)
         .then((response) => {
+            setWPage(response.data.next_page)
             setWorldList(response.data.world_list)
         })
         .catch((error)=>{
@@ -234,6 +240,7 @@ function Top() {
 
     const handleSubmit = (e)=>{
         e.preventDefault();
+        
         let register_id =  sessionStorage.register_id || null;
         let search_query = value;
         let chosen_chara_ids = selectedAvatars.map(item=>(item.chara_id)).toString();
@@ -244,7 +251,8 @@ function Top() {
             "user_id":register_id,
             "search_query":search_query,
             "chosen_chara_ids":chosen_chara_ids,
-            "chosen_world_ids":chosen_world_ids
+            "chosen_world_ids":chosen_world_ids,
+            "page":0,
         });
         if(tab==1)
         {
@@ -258,6 +266,7 @@ function Top() {
             };
             axios(config)
             .then((response) => {
+                setCPage(response.data.next_page)
                 setCharacterList(response.data.chara_list)
             })
             .catch((error)=>{
@@ -280,6 +289,7 @@ function Top() {
             };
             axios(config)
             .then((response) => {
+                setWPage(response.data.next_page)
                 setWorldList(response.data.world_list)
             })
             .catch((error)=>{
@@ -305,6 +315,81 @@ function Top() {
         setSelectedAvatas([...arvatars]);
     }
 
+    const handleScroll = (e) => {
+        const bottom = parseInt(e.target.scrollHeight - e.target.scrollTop) < e.target.clientHeight + 2
+        if (bottom) {
+            
+            let page;
+            if(tab==1)
+                page = cpage
+            else
+                page = wpage
+            if(page!=null)
+            {
+                let register_id =  sessionStorage.register_id || null;
+                let search_query = value;
+                let chosen_chara_ids = selectedAvatars.map(item=>(item.chara_id)).toString();
+                let chosen_world_ids = "";
+                if(selectedArea)
+                    chosen_world_ids =[selectedArea.world_id].toString();
+                let data = JSON.stringify({
+                    "user_id":register_id,
+                    "search_query":search_query,
+                    "chosen_chara_ids":chosen_chara_ids,
+                    "chosen_world_ids":chosen_world_ids,
+                    "page":page,
+                });
+                if(tab==1)
+                {
+                    let config = {
+                        method: 'post',
+                        url: `${baseurl}/get_chara_list`,
+                        headers: { 
+                            'Content-Type': 'application/json'
+                        },
+                            data : data,
+                    };
+                    axios(config)
+                    .then((response) => {
+                        setCPage(response.data.next_page)
+                        setCharacterList([...characterList,...response.data.chara_list])
+                    })
+                    .catch((error)=>{
+                        navigate("/error",
+                            {
+                                state: {
+                                    message: "ストーリーの生成に失敗しました。<br/>時間をおいてお試しください"
+                            }
+                        });
+                    })
+                }
+                else{
+                    let config = {
+                        method: 'post',
+                        url: `${baseurl}/get_world_list`,
+                        headers: { 
+                            'Content-Type': 'application/json'
+                        },
+                            data : data,
+                    };
+                    axios(config)
+                    .then((response) => {
+                        setWPage(response.data.next_page)
+                        setWorldList([...worldList,...response.data.world_list]);
+                    })
+                    .catch((error)=>{
+                        navigate("/error",
+                        {
+                            state: {
+                                message: "ストーリーの生成に失敗しました。<br/>時間をおいてお試しください"
+                        }
+                    });
+                    })
+                }
+            }
+        }
+    };
+
 
     return(
         <div className="container" id="character_select" style={{height:`${height}px`}}>
@@ -318,7 +403,7 @@ function Top() {
                     </div>
                 </div>
                 <div className="preview">
-                    <div className="preview-part" onClick={()=>{setTab(1);setAutoList(charaAutoList); setValue(null)}}>
+                    <div className="preview-part" onClick={()=>{setTab(1);setAutoList(charaAutoList); setValue(null);}}>
                         <div className="preview-img-part">
                             {selectedAvatars?.map((avatar)=>(<div key={avatar.chara_id} style={{backgroundImage:`url(${avatar.img_url})`}} className="avatar-preview"><div className="avatar-preview-close" onClick={handleUnselectAvartar(avatar.chara_id)}><span></span><span></span></div></div>))}
                             {selectedAvatars.length==0 && <div className="avatar-preview" style={{backgroundImage:`url(/assets/image/default-avatar.png)`}}></div>}
@@ -327,7 +412,7 @@ function Top() {
                             キャラ
                         </div>
                     </div>
-                    <div className="preview-part" onClick={()=>{setTab(2); setAutoList(worldAutoList); setValue(null)}}>
+                    <div className="preview-part" onClick={()=>{setTab(2); setAutoList(worldAutoList); setValue(null);}}>
                         <div className="preview-img-part">
                             <div style={{backgroundImage:`url(${selectedArea!=null ? selectedArea.img_url: "/assets/image/point-bg.png"})`}} className={selectedArea!=null ? "world-preview":"world-none-preview"}/>
                         </div>
@@ -381,7 +466,7 @@ function Top() {
                     <div className="point-body" style={{height: `calc(${height}px - 305px)`}}>
                         {
                             tab===1
-                            && <div className="point-body-wrap">
+                            && <div className="point-body-wrap" onScroll={handleScroll}>
                                 {
                                     characterList?.map((image, index)=>(
                                        
@@ -394,7 +479,7 @@ function Top() {
                         }
                         {
                             tab==2 &&
-                            <div className="point-body-wrap">
+                            <div className="point-body-wrap" onScroll={handleScroll}>
                                 {
                                     worldList?.map((area, index)=>(
                                         <div style={{backgroundImage:`url(${area.img_url})`}} key={index} className={`${selectedArea?.img_url==area.img_url? "active" : ""} location-item`} onClick={(e)=>{setSelectedArea(area)}}>
