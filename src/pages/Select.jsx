@@ -47,6 +47,7 @@ function Top() {
     const [width, height] = useWindowSize();
     const [cpage, setCPage] = useState(0);
     const [wpage, setWPage] = useState(0);
+    const [loading, setLoading] = useState(false)
 
     useEffect(async() => {
         // let vh = window.innerHeight;
@@ -318,7 +319,10 @@ function Top() {
     const handleScroll = (e) => {
         const bottom = parseInt(e.target.scrollHeight - e.target.scrollTop) < e.target.clientHeight + 2
         if (bottom) {
-            
+            if(loading)
+            {
+                return
+            }    
             let page;
             if(tab==1)
                 page = cpage
@@ -341,6 +345,7 @@ function Top() {
                 });
                 if(tab==1)
                 {
+                    setLoading(true)
                     let config = {
                         method: 'post',
                         url: `${baseurl}/get_chara_list`,
@@ -352,9 +357,11 @@ function Top() {
                     axios(config)
                     .then((response) => {
                         setCPage(response.data.next_page)
+                        setLoading(false)
                         setCharacterList([...characterList,...response.data.chara_list])
                     })
                     .catch((error)=>{
+                        setLoading(false)
                         navigate("/error",
                             {
                                 state: {
@@ -364,6 +371,7 @@ function Top() {
                     })
                 }
                 else{
+                    setLoading(true)
                     let config = {
                         method: 'post',
                         url: `${baseurl}/get_world_list`,
@@ -374,10 +382,12 @@ function Top() {
                     };
                     axios(config)
                     .then((response) => {
+                        setLoading(false)
                         setWPage(response.data.next_page)
                         setWorldList([...worldList,...response.data.world_list]);
                     })
                     .catch((error)=>{
+                        setLoading(false)
                         navigate("/error",
                         {
                             state: {
