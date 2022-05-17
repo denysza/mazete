@@ -8,9 +8,11 @@ npm run build
 ## on nginx
 sudo cp -r dist/* /var/www/html/
 
+## install docker
+https://www.softek.co.jp/SID/support/sidfmvm/guide/install-docker-ubuntu1804.html
+
 ## on docker (nginx)
 cp -r dist .docker/
-## cp .htaccess docker/
 cd .docker
 sudo docker build -t mazete-front ./ --no-cache=true
 sudo docker run -p 80:80 mazete-front
