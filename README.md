@@ -19,3 +19,8 @@ sudo docker run -p 80:80 mazete-front
 
 ## on cloud run
 https://zenn.dev/hayatoomori/articles/83880221350f7e#google-container-registory%E3%81%ABimage%E3%82%92push%E3%81%99%E3%82%8B
+ただし、dockerのpush先はcontainer registryではなくartifact registryの方が良さそう
+gcpの管理画面でartifact registryを有効にするとチュートリアルができるのでpushするイメージだけ差し替えて実行
+ただし、チュートリアル通りにやっても認証がうまく行かず、以下のページに従ってサービスアカウントにartifact registryのロールを付与し認証
+https://cloud.google.com/container-registry/docs/advanced-authentication
+認証が本当に必要だったのかははっきりしない
