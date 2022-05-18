@@ -74,12 +74,32 @@ function Synopsis() {
                 }
             })
             .catch((error)=>{
-                    navigate("/error",
-                        {
-                            state: {
-                                message: "ストーリーの生成に失敗しました。<br/>時間をおいてお試しください"
-                        }
-                    });
+                if (error.response) {
+                    if(error.response.status===500){
+                        navigate("/error",
+                            {
+                                state: {
+                                    message: "サービスに不具合が生じております。<br/>時間をおいてお試しください。"
+                            }
+                        });
+                    }
+                    else if(error.response.status===504){
+                        navigate("/error",
+                            {
+                                state: {
+                                    message: "アクセスが集中しております。<br/>時間をおいてお試しください。"
+                            }
+                        });
+                    }
+                    else{
+                        navigate("/error",
+                            {
+                                state: {
+                                    message: "ストーリーの生成に失敗しました。<br/>時間をおいてお試しください"
+                            }
+                        });
+                    }
+                }
             })
         }
         else{
@@ -112,12 +132,32 @@ function Synopsis() {
             navigate(`/talk/${response.data.story_id}`,{state: {}})
         })
         .catch((error)=>{
-            navigate("/error",
-                {
-                    state: {
-                        message: "ストーリーの生成に失敗しました。<br/>時間をおいてお試しください"
+            if (error.response) {
+                if(error.response.status===500){
+                    navigate("/error",
+                        {
+                            state: {
+                                message: "サービスに不具合が生じております。<br/>時間をおいてお試しください。"
+                        }
+                    });
                 }
-            });
+                else if(error.response.status===504){
+                    navigate("/error",
+                        {
+                            state: {
+                                message: "アクセスが集中しております。<br/>時間をおいてお試しください。"
+                        }
+                    });
+                }
+                else{
+                    navigate("/error",
+                        {
+                            state: {
+                                message: "ストーリーの生成に失敗しました。<br/>時間をおいてお試しください"
+                        }
+                    });
+                }
+            }
         })
     }
 
@@ -147,12 +187,32 @@ function Synopsis() {
             setUserData(response.data.new_chara_img_urls)
         })
         .catch((error)=>{
-            navigate("/error",
-                {
-                    state: {
-                        message: "ストーリーの生成に失敗しました。<br/>時間をおいてお試しください"
+            if (error.response) {
+                if(error.response.status===500){
+                    navigate("/error",
+                        {
+                            state: {
+                                message: "サービスに不具合が生じております。<br/>時間をおいてお試しください。"
+                        }
+                    });
                 }
-            });
+                else if(error.response.status===504){
+                    navigate("/error",
+                        {
+                            state: {
+                                message: "アクセスが集中しております。<br/>時間をおいてお試しください。"
+                        }
+                    });
+                }
+                else{
+                    navigate("/error",
+                        {
+                            state: {
+                                message: "ストーリーの生成に失敗しました。<br/>時間をおいてお試しください"
+                        }
+                    });
+                }
+            }
         })
     }
     
