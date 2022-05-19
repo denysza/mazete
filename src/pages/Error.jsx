@@ -27,8 +27,8 @@ function Error() {
                         マぜて
                     </div>
                 </div>
-                <div className="ls-main">
-                    <div className="flex-center position-ref full-height full-width bg-white" style={{flexDirection:"column"}}>
+                <div className="ls-main" style={{padding:"0px"}}>
+                    <div className="flex-center position-ref full-width bg-white" style={{flexDirection:"column", height:"calc(100vh - 50px)"}}>
                         <div className="message" dangerouslySetInnerHTML={{ __html: location.state.message }}>
                         </div>
                         <div style={{marginTop:"30px"}}>
