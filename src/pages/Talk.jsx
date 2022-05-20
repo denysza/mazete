@@ -42,10 +42,12 @@ function Talk() {
     const [position, setPosition] = useState(null);
     const [avatar, setAvatar] = useState(null);
     const [renderText, setRenderText] = useState([]);
+    const [multipleContent, setMultipleContent] = useState("")
     const [multiple, setMultiple] = useState(false);
     const [end, setEnd] = useState(false);
     const [rendering, setRendering] = useState(false);
     const [width, height] = useWindowSize();
+    const [active, setActive] = useState(false);
     let {id} = useParams();
     const [open, setOpen] = useState(false);
 
@@ -180,9 +182,6 @@ function Talk() {
                 }
             });
         }
-
-        // window.history.pushState(null, null, window.location.pathname);
-        // window.addEventListener('popstate', onBackButtonEvent);
     }, []);
 
 
@@ -204,11 +203,11 @@ function Talk() {
         let stroyData = data.story;
         if(stroyData[renderIndex]){
             setAvatar(stroyData[renderIndex].chara_img_url);
-           
+            // console.log(stroyData[renderIndex])
             // setPosition(stroyData[renderIndex].position)
             if(stroyData[renderIndex].multiple){
                 setMultiple(true);
-                setRenderText(stroyData[renderIndex].content);
+                // setRenderText(stroyData[renderIndex].content);
             }
             else{
                 setMultiple(false);
@@ -273,7 +272,7 @@ function Talk() {
         navigate("/",{state: {}})
     }
 
-    const handleRestStory = (text) => {
+    const handleRestStory = () => {
         if(!multiple) return
         let register_id =  sessionStorage.register_id || null;
         
@@ -281,7 +280,7 @@ function Talk() {
         let postdata = JSON.stringify({
             "user_id":register_id,
             "story_id":id,
-            'chosen_content':text
+            'chosen_content':multipleContent
         });
         let config = {
             method: 'post',
@@ -392,6 +391,7 @@ function Talk() {
             }
         });
     }
+
     return(
         <>
             {loading && 
@@ -412,14 +412,21 @@ function Talk() {
                         <div className="as-thumb" style={{backgroundImage:`url(${data?.background_url})`}}>
                             {avatar && <img src={avatar} alt="" className={`as-thumb-character ${position==0 ? 'lb': position==1 ? 'mb' : 'rb'}`}/>}
                         </div>
-                        <div className="as-text">
+                        {!multiple && <div className="as-text">
                             {renderText.map((item,index)=>(
-                                <div key={index} className={`as-text-wrap ${rendering || multiple || end ? "" : "arrow"}`} style={{minHeight:`${multiple?"unset":"80px"}`}} onClick={()=>{handleRestStory(item)}}>
+                                <div key={index} className={`as-text-wrap ${rendering || multiple || end ? "" : "arrow"}`} style={{minHeight:`${multiple?"unset":"80px"}`}}>
                                     {item}
                                 </div>
                             ))}
-                            
+                        </div>}
+                        {multiple && 
+                        <div className="as-text">
+                                <div className="as-text-wrap" style={{minHeight:"unset"}}>
+                                    <input className='multiple-content' placeholder='あなたのセリフを入力してください' value={multipleContent} onChange={(e)=>{setMultipleContent(e.target.value); if(e.target.value!=""){setActive(true);} else{setActive(false)}}}/>
+                                </div>
+                                <button className={`multiple-content-send-btn ${active?"active":""}`} disabled={!active} onClick={handleRestStory}>送信</button>
                         </div>
+                        }
                     </div>
                     <button className="back-to-btn" onClick={handleGoback}><img src={renderIndex==0 ? "/assets/image/back-to-img.png" : "/assets/image/back.png"} alt="" /></button>
                     {/* {!end && <div className="text-select-btn-group">
