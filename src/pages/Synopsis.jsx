@@ -39,8 +39,9 @@ function Synopsis() {
         let outline_id = sessionStorage.outline_id || null;
         let background = sessionStorage.background || null;
         let outline_data = sessionStorage.outline_data || null;
-        let user_images = sessionStorage.user_images || null;
+        let user_images = sessionStorage.user_list || null;
         setBackground(JSON.parse(background));
+        setUserData(JSON.parse(user_images))
         let data = JSON.stringify({
             "user_id":register_id,
             "outline_id":outline_id
@@ -60,9 +61,9 @@ function Synopsis() {
                 
                 if(response.data.generated && response.data.outline && !response.data.error){
                     setLoading(false);
-                    setUserData(response.data.chara_img_urls)
+                   // setUserData(response.data.chara_img_urls)
                     setData(response.data.outline);
-                    sessionStorage.setItem("user_images", JSON.stringify(response.data.chara_img_urls));
+                    //sessionStorage.setItem("user_images", JSON.stringify(response.data.chara_img_urls));
                 }
                 else{
                     navigate("/error",
@@ -74,6 +75,7 @@ function Synopsis() {
                 }
             })
             .catch((error)=>{
+               
                 if (error.response) {
                     if(error.response.status===500){
                         navigate("/error",
@@ -104,7 +106,7 @@ function Synopsis() {
         }
         else{
             setLoading(false);
-            setUserData(JSON.parse(user_images))
+            
             setData(outline_data);
         }
     }, [])
@@ -221,10 +223,10 @@ function Synopsis() {
         <div className="container" id="loading_synposis" style={{height:`${height}px`}}>
             <div className="container-wrap">
                 <div className={`ls-top ${editable?"editing" : ""}`} >
-                    <div className="ls-top-wrap" style={{backgroundImage:`url(${background?.img_url}`, backgroundRepeat: 'no-repeat', backgroundSize: 'cover', backgroundPosition:"center"}}>
+                    <div className="ls-top-wrap" style={{backgroundImage:`url(/assets/image/worlds/${background}.png`, backgroundRepeat: 'no-repeat', backgroundSize: 'cover', backgroundPosition:"center"}}>
                         <div className="ls-top-body">
                             {userdata.map((item,index)=>(
-                                <div key={index} className="ls-top-item" style={{backgroundImage:`url(${item})`}}>
+                                <div key={index} className="ls-top-item" style={{backgroundImage:`url(/assets/image/charas/${item}.png)`}}>
                                 </div>
                             ))}
                         </div>

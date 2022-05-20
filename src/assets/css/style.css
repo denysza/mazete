@@ -386,8 +386,8 @@ body {
 }
 
 .character-item {
-    width: 92px;
-    height: 92px;
+    width: 184px;
+    height: 184px;
     display: inline-block;
     overflow: hidden;
     backdrop-filter: blur(30px);
@@ -450,7 +450,8 @@ body {
 .character-add-btn {
     position: absolute;
     bottom: 15px;
-    right: 30px;
+    left: 50%;
+    transform: translate(-50%, -50%);
     padding: 5px 20px;
     height: 45px;
     border: 2px solid white;
@@ -474,8 +475,8 @@ body {
 }
 
 .location-item {
-    width: 123px;
-    height: 83px;
+    width: 185px;
+    height: 123px;
     display: inline-block;
     overflow: hidden;
     backdrop-filter: blur(30px);
@@ -488,7 +489,7 @@ body {
     background-size: cover;
 }
 
-.location-item:nth-child(3n) {
+.location-item:nth-child(2n) {
     margin-right: 0;
 }
 
@@ -901,14 +902,14 @@ body {
 
 @media(max-width: 413px) {
     .character-item {
-        width: 24%;
-        height: 21.6vw;
+        width: 48%;
+        height: 43.2vw;
         margin: 0 1.3333333333333333% 5px 0;
     }
 
     .location-item {
-        width: 32%;
-        height: 20vw;
+        width: 48%;
+        height: 30vw;
         margin: 0 2% 7px 0;
     }
     .as-thumb{
@@ -918,14 +919,14 @@ body {
 
 @media(max-width: 400px) {
     .character-item {
-        width: 24%;
-        height: 21.6vw;
+        width: 48%;
+        height: 43.2vw;
         margin: 0 1.3333333333333333% 5px 0;
     }
 
     .location-item {
-        width: 32%;
-        height: 20vw;
+        width: 48%;
+        height: 30vw;
         margin: 0 2% 7px 0;
     }
 }
