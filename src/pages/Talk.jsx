@@ -113,7 +113,6 @@ function Talk() {
         // document.getElementById("adventure_state").style.height = vh + "px";
         let register_id =  sessionStorage.register_id || null;
         let talkdata =  sessionStorage.data || null;
-        console.log(talkdata)
         if(talkdata){
             setLoading(false)
             setData(JSON.parse(talkdata));
@@ -307,13 +306,14 @@ function Talk() {
             };
             axios(config)
             .then((response) => {
+                
                 if(response.data.generated && !response.data.error){
-                   
+                    
                     data.story.splice(renderIndex + 1, data.story.length - renderIndex - 1)
                     data.story =  data.story.concat(response.data.story)
+                    setLoading(false);
                     setData(data)
                     sessionStorage.setItem("data", JSON.stringify(data));
-                    selectText(text)
                     let images= response.data.story.map(item=>{
     
                             const newimg = new Image();
@@ -321,7 +321,7 @@ function Talk() {
                             return newimg;
                     })
                     setImagelist(images)
-                    setLoading(false);
+                    setIndex(renderIndex + 1)
                 }
                 else{
                     navigate("/error",
