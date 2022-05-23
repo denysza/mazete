@@ -2,7 +2,7 @@
 
 run the production server:
 
-npm install
+npm install  
 npm run build
 
 ## on nginx
