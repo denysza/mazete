@@ -91,10 +91,6 @@ function Movie() {
         })();
     },[])
 
-
-
-
-
     return(
        <>
             {
@@ -106,7 +102,6 @@ function Movie() {
                                 <span>準備中</span>
                             </div>
                         </div>
-                        {/* <button className="back-to-btn" onClick={handleGoback}><img src="/assets/image/back-to-img.svg" alt="" /></button> */}
                     </div>
             }
      </>
