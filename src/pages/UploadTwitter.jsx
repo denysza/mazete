@@ -1,13 +1,12 @@
 import {useState, useEffect} from 'react'
 import axios from 'axios'
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate} from "react-router-dom";
 import queryString from 'query-string';
 const baseurl = import.meta.env.REACT_APP_API_BASE_URL;
 
 
 function Movie() {
     const navigate = useNavigate();
-    // const location = useLocation();
     const [loading, setLoading] = useState(true)
    
     useEffect(()=>{

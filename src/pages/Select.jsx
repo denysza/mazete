@@ -1,17 +1,9 @@
 import {useState, useEffect, useLayoutEffect} from 'react'
 import axios from 'axios'
-import { useNavigate, useLocation } from "react-router-dom";
-import TextField from "@mui/material/TextField";
-import Autocomplete, { createFilterOptions } from "@mui/material/Autocomplete";
+import { useNavigate} from "react-router-dom";
+
 import { v4 as uuidv4 } from 'uuid'
 const baseurl = import.meta.env.REACT_APP_API_BASE_URL;
-const filter = createFilterOptions({
-    stringify: (option) => option.kana + option.label
-});
-
-function sleep(ms) {
-    return new Promise(resolve => (setTimeout(resolve, ms)));
-}
 
 function useWindowSize() {
     const [size, setSize] = useState([0, 0]);
@@ -26,14 +18,9 @@ function useWindowSize() {
     return size;
 }
 
-const placeholder = [
-    "キャラ名または作品名でさがす",
-    "場面名または作品名でさがす"
-]
-
 function Top() {
     const navigate = useNavigate();
-    const location = useLocation();
+    
     const [tab, setTab] = useState(1);
     const [selectedAvatars, setSelectedAvatas] = useState([]);
     const [selectedArea, setSelectedArea] = useState(null);
@@ -73,7 +60,6 @@ function Top() {
                 },
                     data : postdata,
             };
-
             const res = await axios(config);
         }
     },[]);
@@ -161,8 +147,6 @@ function Top() {
         })
     }
 
- 
-
     const handleUnselectAvartar = (index) =>(e)=>{
         e.stopPropagation();
         let arvatars = selectedAvatars
@@ -174,9 +158,6 @@ function Top() {
         }
         setSelectedAvatas([...arvatars]);
     }
-
-
-
 
     return(
         <div className="container" id="character_select" style={{height:`${height}px`}}>

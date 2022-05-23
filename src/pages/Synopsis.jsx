@@ -32,9 +32,7 @@ function Synopsis() {
         setheight(textheight)
     },[data])
 
-    useEffect(() => {        
-        // let vh = window.innerHeight;
-        // document.getElementById("loading_synposis").style.height = vh + "px";
+    useEffect(() => {
         let register_id =  sessionStorage.register_id || null;
         let outline_id = sessionStorage.outline_id || null;
         let background = sessionStorage.background || null;
@@ -61,9 +59,7 @@ function Synopsis() {
                 
                 if(response.data.generated && response.data.outline && !response.data.error){
                     setLoading(false);
-                   // setUserData(response.data.chara_img_urls)
                     setData(response.data.outline);
-                    //sessionStorage.setItem("user_images", JSON.stringify(response.data.chara_img_urls));
                 }
                 else{
                     navigate("/error",
@@ -110,7 +106,6 @@ function Synopsis() {
             setData(outline_data);
         }
     }, [])
-
 
     const handleTalk = () => {
         let register_id =  sessionStorage.register_id || null;

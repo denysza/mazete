@@ -110,7 +110,6 @@ function Talk() {
     
 
     useEffect(() => {
-        // document.getElementById("adventure_state").style.height = vh + "px";
         let register_id =  sessionStorage.register_id || null;
         let talkdata =  sessionStorage.data || null;
         if(talkdata){
@@ -202,11 +201,8 @@ function Talk() {
         let stroyData = data.story;
         if(stroyData[renderIndex]){
             setAvatar(stroyData[renderIndex].chara_img_url);
-            // console.log(stroyData[renderIndex])
-            // setPosition(stroyData[renderIndex].position)
             if(stroyData[renderIndex].multiple){
                 setMultiple(true);
-                // setRenderText(stroyData[renderIndex].content);
             }
             else{
                 setMultiple(false);
@@ -402,7 +398,6 @@ function Talk() {
                             <span>準備中</span>
                         </div>
                     </div>
-                    {/* <button className="back-to-btn" onClick={handleGoback}><img src="/assets/image/back-to-img.svg" alt="" /></button> */}
                 </div>
             }
             {
@@ -429,10 +424,6 @@ function Talk() {
                         }
                     </div>
                     <button className="back-to-btn" onClick={handleGoback}><img src={renderIndex==0 ? "/assets/image/back-to-img.png" : "/assets/image/back.png"} alt="" /></button>
-                    {/* {!end && <div className="text-select-btn-group">
-                        {!multiple && <a className="next-btn">タップして次へ&nbsp;&nbsp;▶</a>}
-                        {multiple && <a className="next-btn active">選択して下さい&nbsp;&nbsp;▶</a>}
-                    </div>} */}
                     {end && <div className="text-select-btn-group">
                         <a onClick={handleTop} className="final-btn">トップへ</a>
                         <a className="final-btn" onClick={handleOpen}>シェア</a>
@@ -442,7 +433,6 @@ function Talk() {
 
         <Modal
             open={open}
-            // onClose={handleClose}
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description"
         >

@@ -1,8 +1,7 @@
-import {useState, useEffect, useLayoutEffect} from 'react'
+import {useState} from 'react'
 import axios from 'axios'
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
 
 import { saveAs } from 'file-saver';
 import { useNavigate, useLocation } from "react-router-dom";
@@ -158,14 +157,6 @@ function Movie() {
                         <textarea className='twitter-message' value={twittermessage} onChange={(e)=>{setTwitterMessage(e.target.value)}}></textarea>
                     </Box>
                     <Box display={'flex'} justifyContent={'flex-end'}>
-                        {/* <TwitterShareButton
-                            title={"マゼて"}
-                            url={twittermessage?.split("\n")[1]}
-                        >                       
-                            <div className="share-btn" on>
-                                    <span>Twitterに投稿</span>
-                            </div> 
-                        </TwitterShareButton> */}
                          <div className="share-btn" onClick={handleShareTwitter}>
                             <span>Twitterに投稿</span>
                         </div> 
