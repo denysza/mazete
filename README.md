@@ -17,7 +17,7 @@ cd .docker
 sudo docker build -t mazete-front ./ --no-cache=true  
 sudo docker run -d -p 80:80 mazete-front  
 更新のときは一旦停止する必要がある（もっとスマートな方法はないか）  
-docker stop $(docker ps -q)
+sudo docker stop $(sudo docker ps -q)
 
 ## on cloud run
 https://zenn.dev/hayatoomori/articles/83880221350f7e#google-container-registory%E3%81%ABimage%E3%82%92push%E3%81%99%E3%82%8B  
