@@ -1,4 +1,5 @@
-FROM node:12.16.3-alpine as build
+# FROM node:12.16.3-alpine as build
+FROM node:16-alpine as build
 
 FROM fholzer/nginx-brotli:v1.12.2
 
@@ -7,5 +8,8 @@ ADD nginx.conf /etc/nginx/nginx.conf
 ADD dist /var/www/html
 ADD .htaccess /var/www/html/
 
-EXPOSE 80
+RUN chown -R 101:0 /var/cache/nginx \
+    && chmod -R g+w /var/cache/nginx
+
+EXPOSE 443
 CMD ["nginx", "-g", "daemon off;"]
