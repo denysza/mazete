@@ -11,5 +11,5 @@ ADD .htaccess /var/www/html/
 RUN chown -R 101:0 /var/cache/nginx \
     && chmod -R g+w /var/cache/nginx
 
-EXPOSE 443
+EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
